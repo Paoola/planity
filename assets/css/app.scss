@@ -1,0 +1,69 @@
+@import "~bootstrap/scss/bootstrap";
+@import "stripe.scss";
+
+html { position: relative; min-height: 100%; }
+
+// Footer
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+.wrapper {
+  background-image: url('../images/homepage_1.jpg');
+  height: 650px;
+  background-size: cover;
+  padding-top: 150px;
+  text-align: center;
+  color: white;
+}
+
+footer p, footer img {
+	padding: 10px;
+}
+
+// Page de recherche
+.search-card .card {
+	&:hover, &:focus {
+  	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);
+    transform: scale3d(1.020, 1.020, 1);
+    cursor: pointer;
+	}
+}
+
+// General
+h2 { font-size: 1.7rem; }
+h3 { font-size: 1.4rem; }
+h4 { font-size: 1.2rem; }
+
+// Page de salon
+h1.saloon-name { line-height: 0.6; } 
+.sidebar h2 { font-size: 1.1rem; }
+
+.mt10 { margin-top: 10px; }
+.mt20 { margin-top: 20px; }
+.mt30 { margin-top: 30px; }
+.mb10 { margin-bottom: 10px; }
+.mb20 { margin-bottom: 20px; }
+.mb30 { margin-bottom: 30px; }
+
+.card-img-top {
+  height: 190px;
+}
+
+.search-card .card {
+  max-width: 290px;
+  margin: auto;
+}
+
+.img-center {
+  display: block;
+  margin: auto;
+}
+
+.vich-image {
+  img {
+    width: 100%;
+  }
+}

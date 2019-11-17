@@ -1,0 +1,130 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Premium | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+
+	<div class="col-12 my-3">
+		<h1 class="text-center">Premium</h1>
+	</div>
+
+	<div class="col-6 mb-5 pb-5">
+		
+		<h2 class="text-center">Inscription Salon</h2>
+		
+		<ul class="list-group">
+			<li class="list-group-item">Réservation client</li>
+			<li class="list-group-item">Agenda en ligne</li>
+			<li class="list-group-item">Paiement automatisés</li>
+			<li class="list-group-item">Temps gagné sur les appels téléphoniques</li>
+			<li class="list-group-item">Promotion de votre salon</li>
+			<li class="list-group-item">Visibilité sur internet</li>
+			<li class="list-group-item">Communiquer vos prestations</li>
+		</ul>
+
+	</div>
+
+	<div class="col-6 mb-5 pb-5">
+
+		<h2 class="text-center" id="price_text">39,99€/mois</h2>
+
+		{{ form_start(form, {'attr': {'id': 'payment-form'}}) }}
+			
+			{{ form_row(form.promo) }}
+
+			<div class="form-group">
+				<label class="mb20">Carte de crédit</label>
+				<div class="stripe">
+				    <div id="card-element"></div>
+				    <div id="card-errors" role="alert"></div>
+				</div>
+			</div>
+
+			{{ form_row(form.submit) }}
+		
+		{{ form_end(form) }}
+	</div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+	// Create a Stripe client.
+	var stripe = Stripe('{{ pk_stripe }}');
+	var elements = stripe.elements();
+	var style = {
+	  base: {
+	    color: '#32325d',
+	    lineHeight: '18px',
+	    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+	    fontSmoothing: 'antialiased',
+	    fontSize: '16px',
+	    '::placeholder': {
+	      color: '#aab7c4'
+	    }
+	  },
+	  invalid: {
+	    color: '#fa755a',
+	    iconColor: '#fa755a'
+	  }
+	};
+
+	var card = elements.create('card', {style: style, 'hidePostalCode': true});
+	card.mount('#card-element');
+
+	card.addEventListener('change', function(event) {
+		var displayError = document.getElementById('card-errors');
+		if (event.error) {
+			displayError.textContent = event.error.message;
+		} else {
+			displayError.textContent = '';
+		}
+	});
+
+	// Handle form submission.
+	var form = document.getElementById('payment-form');
+	form.addEventListener('submit', function(event) {
+		event.preventDefault();
+			stripe.createToken(card).then(function(result) {
+			    if (result.error) {
+			      	var errorElement = document.getElementById('card-errors');
+			      	errorElement.textContent = result.error.message;
+			    } else {
+			      	stripeTokenHandler(result.token);
+			    }
+		  	});
+		form.submit();
+	});
+
+	function stripeTokenHandler(token) {
+		var form = document.getElementById('payment-form');
+		var hiddenInput = document.createElement('input');
+		hiddenInput.setAttribute('type', 'hidden');
+		hiddenInput.setAttribute('name', 'stripeToken');
+		hiddenInput.setAttribute('value', token.id);
+		form.appendChild(hiddenInput);
+		form.submit();
+	}
+
+
+
+	document.getElementById('subscribe_promo').addEventListener('input', function(event) {
+
+		let promos = ['jura', 'lons', 'besancon', 'besançon'];
+		let freeMonths = ['boocut-start', 'B2OC33'];
+	  	let value = event.srcElement.value.toLowerCase();
+		if (freeMonths.includes(value)) {
+		  document.getElementById('price_text').innerHTML = '1 mois gratuit puis 39,99€/mois';
+		} else if (promos.includes(value)) {
+		  document.getElementById('price_text').innerHTML = '19,99€/mois';
+		} else {
+		  document.getElementById('price_text').innerHTML = '39,99€/mois';
+		}
+	});
+</script>
+{% endblock %}

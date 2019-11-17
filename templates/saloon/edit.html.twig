@@ -1,0 +1,39 @@
+{% set page_id = 9 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Modifier mon salon | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+
+	{% include 'saloon/menu.html.twig' %}
+
+	<div class="col-10 my-3">
+		
+		<h1 class="text-center">Modifier mon salon</h1>
+
+		<div class="row justify-content-center">
+			<div class="col-12 col-sm-12 col-lg-6">
+				{% include "saloon/form.html.twig" %}
+			</div>
+		</div>
+
+		{% if saloon.isPremium %}
+			<div class="row justify-content-center">
+				<div class="col-12 col-sm-12 col-lg-6">
+					{{ form_start(formUnsubscribe, {'attr': {'onsubmit': 'return confirm(\'Voulez vous vraiment désinscrire votre salon ?\');'}}) }}
+
+						{{ form_row(formUnsubscribe.submit) }}
+
+					{{ form_end(formUnsubscribe) }}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBebREjBpspgub7FLoGdQoE0eYNfWJOEMs&libraries=places"></script>
+<script src="{{ asset('build/location.js') }}"></script>
+
+{% endblock %}

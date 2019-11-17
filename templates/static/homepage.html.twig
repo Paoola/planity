@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Boocut - Réservation de rendez-vous de coiffeurs en ligne{% endblock %}
+{% block description %}Boocut vous aide à trouver votre salon de coiffure et réserver votre rendez-vous en ligne. Professionnel ? Boocut peut prendre en charge votre organisation.{% endblock %}
+
+{% block body %}
+
+
+
+<div class="row">
+	{% for saloon in saloons %}
+		<div class="col-sm-12 col-md-4">	
+			<div class="card my-3">
+				<div class="card-body">
+					<h5 class="card-title">{{ saloon.name }}</h5>
+					<p class="card-text">{{ saloon.location }}</p>
+					<a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn btn-primary">Rendez-vous</a>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div><br><br>
+
+{% endblock %}
+
+
+{% block scripts %}
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&libraries=places"></script>
+	<script src="{{ asset('build/location.js') }}"></script>
+{% endblock %}

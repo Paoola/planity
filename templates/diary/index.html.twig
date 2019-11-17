@@ -1,0 +1,50 @@
+{% set page_id = 10 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Rendez-vous | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-12">
+			<div class="row mt-2">
+				<div class="col-6">
+					<h1>Mes rendez-vous</h1>
+				</div>
+				
+				<div class="col-6">
+					<a class="btn btn-primary float-right my-2" href="{{ path('saloon_diary_new') }}">Ajouter un rendez-vous</a>
+				</div>
+			</div>
+
+			{% set events = [] %}
+			{% for slot in slots %}
+				{% if slot.isPaid %}
+						{% set payment = '✅' %}
+				{% else %}
+						{% set payment = '❌' %}
+				{% endif %}
+
+				{% set title = payment ~ ' ' ~ slot.customer.name ~ ' - ' ~ slot.price.name %}
+				{% set event = {
+						'title': title,
+						'start': slot.start|date('Y-m-d\\TH:i:s'),
+						'end': slot.end|date('Y-m-d\\TH:i:s'),
+						'backgroundColor': 'blue',
+						'textColor': 'white'
+				} %}    
+				{% set events = events|merge([event]) %}
+			{% endfor %}
+
+			<div class="col-md-12 my-3">
+				<div id="calendar" data-events="{{ events|json_encode|e('html_attr') }}"></div>
+			</div> 
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <link rel="stylesheet" href="{{ asset('build/calendar.css') }}" />
+    <script src="{{ asset('build/calendar.js') }}"></script>
+{% endblock %}

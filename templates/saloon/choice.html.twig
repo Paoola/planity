@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Mes salons | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+
+	<div class="col-12 my-3">
+		<h1 class="text-center">Mes salons</h1>
+	</div>
+
+	<div class="col-4 mb-5 pb-5">
+		{% for saloon in saloons %}
+			<a class="btn btn-primary btn-block my-3" href="{{ path('saloon_manage', {'saloon': saloon.id}) }}">{{ saloon.name }}</a>
+		{% endfor %}
+	</div>
+
+</div>
+
+{% endblock %}

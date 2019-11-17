@@ -1,0 +1,38 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ saloon.name }}{% endblock %}
+
+{% block body %}
+    {% set date = null %}
+    <div class="row my-4">
+        <div class="col-lg-8 col-md-12 col-sm-12 offset-lg-2 text-center">
+            <div class="jumbotron">
+                <h2>Confirmez le rendez-vous</h2>
+                <p>
+                    Rendez-vous le <b>{{ slot.start|date('d/m/Y') }}</b> à <b>{{ slot.start|date('H:i') }}</b><br>
+                    avec <b>{{ slot.worker.firstname|capitalize }} {{ slot.worker.lastname|capitalize }}</b><br>
+                    à l'adresse <b>{{ slot.saloon.location }}</b>
+                </p>
+
+                {{ form_start(form, {'attr': {'id': 'payment-form'}}) }}
+
+                {{ form_row(form.name) }}
+
+                {{ form_row(form.phoneNumber, {'label': 'Téléphone'}) }}
+
+                {{ form_row(form.email, {'label': 'Email'}) }}
+
+                <input type="submit" value="Confirmer" class="btn btn-primary" id="button_confirm"/>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.getElementById("customer_phoneNumber").required = false;
+        document.getElementById("customer_email").required = false;
+    </script>
+{% endblock %}

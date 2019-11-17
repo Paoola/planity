@@ -1,0 +1,29 @@
+{% set page_id = 2 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Rendez-vous | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+	{% include 'saloon/menu.html.twig' %}
+
+	<div class="col-10">
+		<div class="row mt-2">
+			<div class="col-12 col-sm-12 col-lg-6">
+				<h1>Rendez-vous du salon</h1>
+			</div>
+			
+			<div class="col-12 col-sm-12 col-lg-6">
+				<a class="btn btn-primary float-right my-2" href="{{ path('saloon_manage_slot_new_auto', {'saloon': saloon.id}) }}">Ajouter un rendez-vous</a>
+				<a class="btn btn-primary float-right my-2 mr-2" href="{{ path('saloon_manage_slot_new', {'saloon': saloon.id}) }}">Ajouter un rdv manuel</a>
+			</div>
+		</div>
+
+		{% include "saloon/slot/table.html.twig" %}
+		
+	</div>
+</div>
+
+{% endblock %}

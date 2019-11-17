@@ -1,0 +1,57 @@
+{% set page_id = 5 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Horaires | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+	{% include 'saloon/menu.html.twig' %}
+
+	<div class="col-10">
+
+		<h1 class="mt-2">Horaires</h1>
+		
+		<table class="table table-hover text-center">
+			<tr>
+				<th><b>Jour</b></th>
+				<th><b>Début</b></th>
+				<th><b>Fin</b></th>
+				<th><b>Action</b></th>
+			</tr>
+			
+			{% for schedule in saloon.schedules %}
+				<tr>
+					<td>
+						{% if schedule.day == 0 %}Dimanche
+	                    {% elseif schedule.day == 1 %}Lundi
+	                    {% elseif schedule.day == 2 %}Mardi
+	                    {% elseif schedule.day == 3 %}Mercredi
+	                    {% elseif schedule.day == 4 %}Jeudi
+	                    {% elseif schedule.day == 5 %}Vendredi
+	                    {% elseif schedule.day == 6 %}Samedi
+	                    {% endif %}
+					</td>
+					<td>
+						{% if not schedule.dayOff %}
+							{{ schedule.start|date('H:i') }}
+						{% endif %}
+					</td>
+					<td>
+						{% if schedule.dayOff %}
+							Fermé
+						{% else %}
+							{{ schedule.end|date('H:i') }}
+						{% endif %}
+					</td>
+					<td>
+						<a href="{{ path('saloon_manage_schedule_edit', {'saloon': saloon.id, 'schedule': schedule.id}) }}">Modifier</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+
+{% endblock %}

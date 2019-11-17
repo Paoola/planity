@@ -1,0 +1,20 @@
+<table class="table text-center">
+    <tr>
+        <th><b>Prise en charge</b></th>
+        <th><b>Client</b></th>
+        <th><b>Commence</b></th>
+        <th><b>Temps</b></th>
+        <th><b>Prix</b></th>
+        <th><b>Action</b></th>
+    </tr>
+    {% for slot in nextSlots %}
+        <tr>
+            <td>{{ slot.worker.lastname }}</td>
+            <td>{{ slot.customer.name }}</td>
+            <td>{{ slot.start|date('d/m H:i') }}</td>
+            <td>{{ slot.price.duration }}min</td>
+            <td>{{ slot.price.amount }}€</td>
+            <td><a href="{{ path('saloon_manage_slot_edit', {'saloon': saloon.id, 'slot': slot.id}) }}">Modifier</a></td>
+        </tr>
+        {% endfor %}
+</table>

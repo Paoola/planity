@@ -1,0 +1,45 @@
+{% set page_id = 7 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Employés | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+	{% include 'saloon/menu.html.twig' %}
+
+	<div class="col-10">
+		<div class="row mt-2">
+			<div class="col-12 col-sm-12 col-lg-6">
+				<h1>Employés</h1>
+			</div>
+			
+			<div class="col-12 col-sm-12 col-lg-6">
+				<a class="btn btn-primary float-right my-2" href="{{ path('saloon_manage_worker_new', {'saloon': saloon.id}) }}">Ajouter un employé</a>
+			</div>
+		</div>
+
+
+		<table class="table text-center">
+			<tr>
+				<th><b>Prénom</b></th>
+				<th><b>Nom</b></th>
+				<th><b>Email</b></th>
+				<th><b>Action</b></th>
+				<th><b>Congés</b></th>
+			</tr>
+			{% for worker in saloon.workers %}
+				<tr>	
+					<td>{{ worker.firstname }}</td>
+					<td>{{ worker.lastname }}</td>
+					<td>{{ worker.email }}</td>
+					<td><a href="{{ path('saloon_manage_worker_edit', {'saloon': saloon.id, 'worker': worker.id}) }}">Modifier</a></td>
+					<td><a href="{{ path('saloon_manage_vacation_worker_edit', {'saloon': saloon.id, 'worker': worker.id}) }}">Modifier</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+
+{% endblock %}

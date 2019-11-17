@@ -1,0 +1,30 @@
+security:
+    encoders:
+        App\Entity\User: bcrypt
+    
+    providers:
+        user_db:
+            entity: { class: App\Entity\User, property: email }
+    
+    firewalls:
+        main:
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: saloon_choice
+            logout:
+                path:   /logout
+                target: /
+            remember_me:
+                lifetime: 30000000
+                secret:   '%kernel.secret%'
+                always_remember_me: true
+                user_providers: ['user_db']
+
+    role_hierarchy:
+        ROLE_WORKER: ROLE_USER
+        ROLE_ADMIN: ROLE_USER
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }

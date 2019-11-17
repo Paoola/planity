@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Confirmation {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row my-4">
+        <div class="col-12 text-center">
+			<div class="jumbotron">
+				<h1>Rendez-vous validé 🙌🏻</h1>
+
+				<div title="Add to Calendar" class="addeventatc">
+					Ajouter à mon calendrier
+					<span class="start">{{ app.request.session.get('bookingStart')|date('m/d/Y H:i A') }}</span>
+					<span class="end">{{ app.request.session.get('bookingEnd')|date('m/d/Y H:i A') }}</span>
+					<span class="timezone">Europe/Paris</span>
+					<span class="title">{{ saloon.name }}</span>
+					<span class="description">Rendez-vous de coiffeur</span>
+					<span class="location">{{ saloon.location }}</span>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+{% endblock %}

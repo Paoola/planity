@@ -1,0 +1,52 @@
+{% if auto %}
+    {% set changeDate = "{{ path('saloon_manage_slot_new_auto', {'saloon': saloon.id}) }}" %}
+    {% set form = 'saloon_private_booking_form' %}
+{% else %}
+    {% set changeDate = "{{ path('saloon_public', {'saloon': price.saloon.slug}) }}" %}
+    {% set form = 'saloon_public_booking_form' %}
+{% endif %}
+
+
+<div class="row">
+
+    <div class="col-12">
+        <h2 class="text-center">{{ day|date('d/m/Y') }}</h2>
+    </div>
+
+    {% if error is not null %}
+        <div class="col-12">
+            <div class="jumbotron text-center">
+                <h3>{{ error }}</h3>
+
+                <a class="btn btn-primary mt-3" href="{{ changeDate }}">Choisir une autre date</a>
+            </div>
+        </div>
+    {% else %}
+        {% for slot in slots %}
+            {% set minute = slot|date('i') %}
+            
+            {% if minute is divisible by(10) %}
+                
+                {% if slot|date('d/m/Y') == "now"|date('d/m/Y') %}
+                    
+                    {% if slot|date('H:i') > "now"|date('H:i') %}    
+                        
+                        <div class="col-sm-6 col-md-3 my-2">
+                            <a class="btn btn-primary btn-block" href="{{ path(form, {'price': price.id, 'slot_ts': slot.timestamp, 'worker': worker.id}) }}">{{ slot|date('H:i') }}</a>
+                        </div>
+                    
+                    {% endif %}
+
+                {% else %}
+
+                    <div class="col-sm-6 col-md-3 my-2">
+                        <a class="btn btn-primary btn-block" href="{{ path(form, {'price': price.id, 'slot_ts': slot.timestamp, 'worker': worker.id}) }}">{{ slot|date('H:i') }}</a>
+                    </div>
+                
+                {% endif %}
+            
+            {% endif %}
+        
+        {% endfor %}
+    {% endif %}
+</div>

@@ -1,0 +1,55 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Recherche - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<div class="row text-center">
+		<div class="col-md-12">
+			<h1 class="my-3 font-weight-bold">{{ app.request.get('place') }}</h1>
+		</div>
+	</div>
+
+	<div class="row search-card">
+		{% for saloon in saloons %}
+
+			{% if saloon.imageName is not empty %}
+				{% set image = 'images/saloons/' ~ saloon.imageName %}
+			{% else %}
+				{% set image = 'build/images/coiffure_2.jpeg' %}
+			{% endif %}
+
+			{% if loop.index % 4 == 0 %}
+				{% set aos = 'fade-left' %}
+			{% elseif loop.index % 3 == 0 %}
+				{% set aos = 'fade-down' %}
+			{% elseif loop.index % 2 == 0 %}
+				{% set aos = 'fade-up' %}
+			{% else %}
+				{% set aos = 'fade-right' %}
+			{% endif %}
+
+			<div class="col-lg-3 col-md-6 col-sm-12 my-3" data-aos="{{ aos }}">
+				<div class="card" onclick="location.href='{{ path('saloon_public', {'saloon': saloon.slug}) }}';">
+				  <img class="card-img-top" src="{{ asset(image | imagine_filter('saloon_search')) }}">
+				  <div class="card-body">
+				    <h5 class="card-title">{{ saloon.name }}</h5>
+
+				    <p class="card-text">{{ saloon.location }}</p>
+
+				    {% if saloon.isPremium %}
+				    	<a class="btn btn-primary text-white">Prendre rendez-vous</a>
+				    {% endif %}
+
+				  </div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBebREjBpspgub7FLoGdQoE0eYNfWJOEMs&libraries=places"></script>
+	<script src="{{ asset('build/location.js') }}"></script>
+{% endblock %}

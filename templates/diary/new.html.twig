@@ -1,0 +1,27 @@
+{% set page_id = 10 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Ajouter un rendez-vous | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+	<div class="col-12">
+
+		<h1 class="text-center my-3">Ajouter un rendez-vous</h1>
+
+		<div class="row justify-content-center">
+			<div class="col-4">
+				{{ form(form) }}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<link rel="stylesheet" href="{{ asset('build/datetime.css') }}">
+	<script src="{{ asset('build/datetime.js') }}"></script>
+{% endblock %}

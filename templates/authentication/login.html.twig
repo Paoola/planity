@@ -1,0 +1,22 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Connexion | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+
+	<div class="col-12 my-3">
+		<h1 class="text-center">Connexion</h1>
+	</div>
+
+	<div class="col-lg-5 col-md-6 col-sm-12 mb-5">
+		{{ form(form) }}
+
+		<a href="{{ path('register') }}">Inscription</a><br>
+		<a href="{{ path('forget_password') }}">Mot de passe oublié</a>
+	</div>
+
+</div>
+
+{% endblock %}

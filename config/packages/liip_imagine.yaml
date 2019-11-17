@@ -1,0 +1,14 @@
+liip_imagine:
+  driver: "gd"
+  filter_sets:
+
+    saloon_search:
+      jpeg_quality:          95
+      filters:
+        thumbnail: {size: [253, 190], mode: inset, allow_upscale: true }
+    
+    saloon_page:
+      jpeg_quality:          90
+      filters:
+        thumbnail: {size: [500, 300], mode: inset, allow_upscale: true }
+    

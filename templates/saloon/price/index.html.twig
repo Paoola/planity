@@ -1,0 +1,43 @@
+{% set page_id = 4 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Tarifs | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+	{% include 'saloon/menu.html.twig' %}
+
+	<div class="col-lg-10 col-md-12">
+		<div class="row mt-2">
+			<div class="col-6">
+				<h1>Tarifs</h1>
+			</div>
+			
+			<div class="col-6">
+				<a class="btn btn-primary float-right my-2" href="{{ path('saloon_manage_price_new', {'saloon': saloon.id}) }}">Ajouter un tarif</a>
+			</div>
+		</div>
+
+
+		<table class="table text-center">
+			<tr>
+				<th><b>Nom</b></th>
+				<th><b>Durée</b></th>
+				<th><b>Prix</b></th>
+				<th><b>Action</b></th>
+			</tr>
+			{% for price in saloon.prices %}
+				<tr>	
+					<td>{{ price.name }}</td>
+					<td>{{ price.duration }} min</td>
+					<td>{{ price.amount }}€</td>
+					<td><a href="{{ path('saloon_manage_price_edit', {'saloon': saloon.id, 'price': price.id}) }}">Modifier</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+
+{% endblock %}

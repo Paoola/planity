@@ -1,0 +1,103 @@
+{% set page_id = 2 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Ajouter un rendez-vous | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+
+
+		<div class="col-lg-8 col-md-10 col-sm-12 offset-md-1 offset-lg-2">
+
+			<h1 class="text-center my-3">Ajouter un rendez-vous</h1>
+
+			<div class="row" id="choose_prices">
+                {% for price in saloon.prices %}
+					<div class="col-sm-12 col-md-6">
+						<div class="card price" id="{{ price.id }}">
+							<div class="card-body">
+								<h5 class="card-title my-1">{{ price.name }}</h5>
+								<p class="card-text my-1">{{ price.duration }}min</p>
+								<p class="card-text my-1">{{ price.amount }}€</p>
+								<a href="#" class="btn btn-primary">Réserver</a>
+							</div>
+						</div>
+					</div>
+                {% endfor %}
+			</div>
+
+			<div class="row">
+				<div id="choose_day">
+					<div class="jumbotron">
+						<div class="row">
+                            {% set today = "now" %}
+                            {# 14 = nombre de jours à afficher #}
+                            {% for i in 0..14 %}
+                                {% if today|date('N') == 0 %}
+                                    {% set day = 'Dimanche' %}
+                                {% elseif  today|date('N') == 1 %}
+                                    {% set day = 'Lundi' %}
+                                {% elseif  today|date('N') == 2 %}
+                                    {% set day = 'Mardi' %}
+                                {% elseif  today|date('N') == 3 %}
+                                    {% set day = 'Mercredi' %}
+                                {% elseif  today|date('N') == 4 %}
+                                    {% set day = 'Jeudi' %}
+                                {% elseif  today|date('N') == 5 %}
+                                    {% set day = 'Vendredi' %}
+                                {% elseif  today|date('N') == 6 %}
+                                    {% set day = 'Samedi' %}
+                                {% elseif  today|date('N') == 7 %}
+                                    {% set day = 'Dimanche' %}
+                                {% endif %}
+
+                                {% if today|date('m') == 1 %}
+                                    {% set month = 'Janvier' %}
+                                {% elseif  today|date('m') == 2 %}
+                                    {% set month = 'Février' %}
+                                {% elseif  today|date('m') == 3 %}
+                                    {% set month = 'Mars' %}
+                                {% elseif  today|date('m') == 4 %}
+                                    {% set month = 'Avril' %}
+                                {% elseif  today|date('m') == 5 %}
+                                    {% set month = 'Mai' %}
+                                {% elseif  today|date('m') == 6 %}
+                                    {% set month = 'Juin' %}
+                                {% elseif  today|date('m') == 7 %}
+                                    {% set month = 'Juillet' %}
+                                {% elseif  today|date('m') == 8 %}
+                                    {% set month = 'Août' %}
+                                {% elseif  today|date('m') == 9 %}
+                                    {% set month = 'Septembre' %}
+                                {% elseif  today|date('m') == 10 %}
+                                    {% set month = 'Octobre' %}
+                                {% elseif  today|date('m') == 11 %}
+                                    {% set month = 'Novembre' %}
+                                {% elseif  today|date('m') == 12 %}
+                                    {% set month = 'Décembre' %}
+                                {% endif %}
+								<div class="col-sm-12 col-md-6 my-2">
+									<a class="btn btn-primary btn-block" href="{{ path('saloon_private_booking', {'price': 0, 'timestamp': today|date('U') }) }}">
+                                        {{ day }} {{ today|date('d') }} {{ month }}
+									</a>
+								</div>
+                                {% set today = today|date_modify("+1 day") %}
+                            {% endfor %}
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+	<link rel="stylesheet" href="{{ asset('build/datetime.css') }}">
+	<script src="{{ asset('build/datetime.js') }}"></script>
+	<script src="{{ asset('build/booking.js') }}"></script>
+{% endblock %}

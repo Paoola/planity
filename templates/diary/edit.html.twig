@@ -1,0 +1,23 @@
+{% set page_id = 10 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Rendez-vous | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+	<div class="col-12">
+
+		<h1 class="text-center my-3">Modifier un rendez-vous</h1>
+
+		<div class="row justify-content-center">
+			<div class="col-4">
+				{{ form(form) }}
+			</div>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

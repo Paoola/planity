@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Inscription | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+
+	<div class="col-12 my-3">
+		<h1 class="text-center">Inscription</h1>
+	</div>
+
+	<div class="col-lg-5 col-md-6 col-sm-12 mb-5">
+		{{ form(form) }}
+
+		<a href="{{ path('login') }}">Connexion</a>
+	</div>
+
+</div>
+
+{% endblock %}

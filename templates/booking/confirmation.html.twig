@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ saloon.name }}{% endblock %}
+
+{% block body %}
+
+{% set date = null %}
+
+<div class="container">
+    <div class="row my-4">
+        <div class="col-lg-6 col-md-10 col-sm-12 offset-md-1 offset-lg-3 text-center">
+			<div class="jumbotron">
+				<h2>Votre code de confirmation</h2>
+				<p>
+					Rendez-vous le <b>{{ slot.start|date('d/m/Y') }}</b> à <b>{{ slot.start|date('H:i') }}</b><br>
+					avec <b>{{ slot.worker.firstname|capitalize }} {{ slot.worker.lastname|capitalize }}</b><br>
+					à l'adresse <b>{{ slot.saloon.location }}</b>
+				</p>
+
+					{{ form(form) }}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% set page_id = 6 %}
+{% extends "layout.html.twig" %}
+
+{% block title %}Pauses | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+	{% include 'saloon/menu.html.twig' %}
+
+	<div class="col-lg-10 col-md-12">
+		<div class="row mt-2">
+			<div class="col-6">
+				<h1>Pauses</h1>
+			</div>
+			
+			<div class="col-6">
+				<a class="btn btn-primary float-right my-2" href="{{ path('saloon_manage_pause_new', {'saloon': saloon.id}) }}">Ajouter une pause</a>
+			</div>
+		</div>
+
+
+		<table class="table text-center">
+			<tr>
+				<th><b>Nom</b></th>
+				<th><b>Durée</b></th>
+				<th><b>Prix</b></th>
+				<th><b>Employé</b></th>
+				<th><b>Action</b></th>
+			</tr>
+			{% for pause in saloon.pauses %}
+				<tr>	
+					<td>{{ pause.start|date('d/m/Y H:i') }}</td>
+					<td>{{ pause.end|date('d/m/Y H:i') }}</td>
+					<td>{{ pause.everyweek }}</td>
+					<td>{{ pause.worker }}</td>
+					<td><a href="{{ path('saloon_manage_pause_edit', {'saloon': saloon.id, 'pause': pause.id}) }}">Modifier</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+
+{% endblock %}

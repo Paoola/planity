@@ -1,0 +1,37 @@
+<table class="table table-striped text-center">
+	<tr>
+		<td>Lundi</td>
+		<td>{% if not saloon.schedules.1.dayOff %}{{ saloon.schedules.1.start|date('H:i') }}{% endif %}</td>
+		<td>{% if saloon.schedules.1.dayOff %}Fermé{% else %}{{ saloon.schedules.1.end|date('H:i') }}{% endif %}</td>
+	</tr>
+	<tr>
+		<td>Mardi</td>
+		<td>{% if not saloon.schedules.2.dayOff %}{{ saloon.schedules.2.start|date('H:i') }}{% endif %}</td>
+		<td>{% if saloon.schedules.2.dayOff %}Fermé{% else %}{{ saloon.schedules.2.end|date('H:i') }}{% endif %}</td>
+	</tr>
+	<tr>
+		<td>Mercredi</td>
+		<td>{% if not saloon.schedules.3.dayOff %}{{ saloon.schedules.3.start|date('H:i') }}{% endif %}</td>
+		<td>{% if saloon.schedules.3.dayOff %}Fermé{% else %}{{ saloon.schedules.3.end|date('H:i') }}{% endif %}</td>
+	</tr>
+	<tr>
+		<td>Jeudi</td>
+		<td>{% if not saloon.schedules.4.dayOff %}{{ saloon.schedules.4.start|date('H:i') }}{% endif %}</td>
+		<td>{% if saloon.schedules.4.dayOff %}Fermé{% else %}{{ saloon.schedules.4.end|date('H:i') }}{% endif %}</td>
+	</tr>
+	<tr>
+		<td>Vendredi</td>
+		<td>{% if not saloon.schedules.5.dayOff %}{{ saloon.schedules.5.start|date('H:i') }}{% endif %}</td>
+		<td>{% if saloon.schedules.5.dayOff %}Fermé{% else %}{{ saloon.schedules.5.end|date('H:i') }}{% endif %}</td>
+	</tr>
+	<tr>
+		<td>Samedi</td>
+		<td>{% if not saloon.schedules.6.dayOff %}{{ saloon.schedules.6.start|date('H:i') }}{% endif %}</td>
+		<td>{% if saloon.schedules.6.dayOff %}Fermé{% else %}{{ saloon.schedules.6.end|date('H:i') }}{% endif %}</td>
+	</tr>
+	<tr>
+		<td>Dimanche</td>
+		<td>{% if not saloon.schedules.0.dayOff %}{{ saloon.schedules.0.start|date('H:i') }}{% endif %}</td>
+		<td>{% if saloon.schedules.0.dayOff %}Fermé{% else %}{{ saloon.schedules.0.end|date('H:i') }}{% endif %}</td>
+	</tr>
+</table>
