@@ -3,7 +3,16 @@
 
 html { position: relative; min-height: 100%; }
 
-// Footer
+.salon-title {
+  margin: 0;
+  font-family: freight-big-pro;
+  font-weight: 900;
+  text-align: left;
+  font-size: 25px;
+  line-height: 1.2;
+  text-align: center;
+}
+
 footer {
   position: absolute;
   bottom: 0;
@@ -23,7 +32,6 @@ footer p, footer img {
 	padding: 10px;
 }
 
-// Page de recherche
 .search-card .card {
 	&:hover, &:focus {
   	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);
@@ -32,13 +40,11 @@ footer p, footer img {
 	}
 }
 
-// General
 h2 { font-size: 1.7rem; }
 h3 { font-size: 1.4rem; }
 h4 { font-size: 1.2rem; }
 
-// Page de salon
-h1.saloon-name { line-height: 0.6; } 
+h1.saloon-name { line-height: 0.6; }
 .sidebar h2 { font-size: 1.1rem; }
 
 .mt10 { margin-top: 10px; }

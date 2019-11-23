@@ -7,8 +7,8 @@
 
     <div data-online-payment="{{ saloon.onlinePayment }}" id="js-book" class="row my-4">
         <div class="col-lg-8 col-md-12 col-sm-12 offset-lg-2 text-center">
-            <div class="jumbotron">
-                <h2>Confirmez le rendez-vous</h2>
+            <div class="container-fluid">
+                <div class="card-body p-4">
                 <p>
                     Rendez-vous le <b>{{ slot.start|date('d/m/Y') }}</b> à <b>{{ slot.start|date('H:i') }}</b><br>
                     avec <b>{{ slot.worker.firstname|capitalize }} {{ slot.worker.lastname|capitalize }}</b><br>
@@ -43,7 +43,7 @@
 
                     {{ form_end(form) }}
                 </p>
-            </div>
+
         </div>
     </div>
 {% endblock %}

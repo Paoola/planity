@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title>{% block title %}Boocut - Rendez-vous de coiffeur en ligne{% endblock %}</title>
+    <title>{% block title %}Lana Beauty - Réservation de manucure en ligne{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{% block description %}Boocut vous aide à trouver votre salon de coiffure et réserver votre rendez-vous en ligne. Professionnel ? Boocut peut prendre en charge votre organisation.{% endblock %}">
+    <meta name="description" content="{% block description %}Lana Beauty vous aide à réserver votre rendez-vous en ligne.{% endblock %}">
     
     <!-- Désindexation des pages de réservation -->
     {% if 
@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="{{ path('home') }}">
         <img src="{{ asset('build/images/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-        Boocut
+        LANA BEAUTY
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@
             {% endif %}
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ path('register') }}">Vous êtes coiffeur ?</a>
+              <a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
             </li>
           {% endif %}
         </ul>
@@ -62,30 +62,7 @@
       {% include "partials/search.html.twig" %}
     {% endif %}
 
-    <div class="container" style="margin-bottom: 200px;">
       {% block body %}{% endblock %}
-    </div>
-
-    {#<footer class="text-muted mt-5">#}
-      {#<div class="container">#}
-        {#<div class="float-right">#}
-          {#<a target="_blank" href="https://www.facebook.com/boocut">#}
-            {#<img src="{{ asset('build/images/facebook1.png') }}" alt="Boocut logo facebook" data-aos="zoom-in">#}
-          {#</a>#}
-          {#<a target="_blank" href="https://twitter.com/Boocut2">#}
-            {#<img src="{{ asset('build/images/twitter1.png') }}" alt="Boocut logo twitter" data-aos="zoom-in">#}
-          {#</a>#}
-        {#</div>#}
-        {#{% if app.user %}#}
-          {#<p>#}
-            {#<a href="{{ path('saloon_add') }}">Ajouter un salon</a><br>#}
-            {#<a href="{{ path('logout') }}">Déconnexion</a>#}
-          {#</p>#}
-        {#{% endif %}#}
-        {#<p>Boocut vous aide à trouver votre rendez-vous de coiffeur votre temps, vos soucis, votre téléphone.</p>#}
-        {#<p>Copyright © 2018 Boocut Inc. All Rights Reserved.</p>#}
-      {#</div>#}
-    {#</footer>#}
 
     {{ encore_entry_script_tags('app') }}
     {% block scripts %}{% endblock %}

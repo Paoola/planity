@@ -19,9 +19,5 @@
         <a class="col-lg-12 col-md-3 col-sm-6 col-6 dropdown-item{% if page_id == 10 %} active{% endif %}" href="{{ path('saloon_manage_customer', {'saloon': saloon.id}) }}">Mes clients</a>
 
         <a class="col-lg-12 col-md-3 col-sm-6 col-6 dropdown-item{% if page_id == 9 %} active{% endif %}" href="{{ path('saloon_edit', {'saloon': saloon.id}) }}">Salon</a>
-
-        {% if saloon.isPremium == false %}
-            <a class="col-lg-12 col-md-3 col-sm-6 col-6 dropdown-item{% if page_id == 11 %} active{% endif %}" href="{{ path('saloon_subscribe', {'saloon': saloon.id}) }}">Premium</a>
-        {% endif %}
     </div>
 </div>

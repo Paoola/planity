@@ -11,7 +11,7 @@ use App\Entity\Saloon;
 class SaloonPublicController extends AbstractController
 {
     /**
-     * @Route("/coiffeur/{saloon}", name="saloon_public")
+     * @Route("/les-soins-des-mains-des-pieds/{saloon}", name="saloon_public")
      */
     public function index($saloon)
     {

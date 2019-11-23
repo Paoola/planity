@@ -5,9 +5,10 @@
 {% block body %}
     <div class="row my-4">
         <div class="col-12 text-center">
-			<div class="jumbotron">
-				<h1>Rendez-vous validé 🙌🏻</h1>
-
+				<h1>Votre rendez-vous est validé 🙌🏻</h1>
+				<img class="img-center"
+					 src="{{ asset('images/saloons/booking-success.jpg')}}"
+					 style="max-width: 500px;"/>
 				<div title="Add to Calendar" class="addeventatc">
 					Ajouter à mon calendrier
 					<span class="start">{{ app.request.session.get('bookingStart')|date('m/d/Y H:i A') }}</span>
@@ -17,10 +18,9 @@
 					<span class="description">Rendez-vous de coiffeur</span>
 					<span class="location">{{ saloon.location }}</span>
 				</div>
-
-			</div>
 		</div>
 	</div>
+
 {% endblock %}
 
 {% block scripts %}

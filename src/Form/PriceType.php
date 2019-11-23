@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PriceType extends AbstractType
 {
@@ -30,7 +31,7 @@ class PriceType extends AbstractType
                 'label' => 'Montant (en €)'
             ))
             ->add('workers', EntityType::class, array(
-                'label' => 'Coiffeurs',
+                'label' => 'Employés',
                 'class' => User::class,
                 'choices' => $workers,
                 'choice_label' => 'username',

@@ -1,33 +1,34 @@
-    {% extends "layout.html.twig" %}
+{% extends "layout.html.twig" %}
 
 {% block title %}{{ price.saloon.name }}{% endblock %}
 
 {% block body %}
     {% set date = null %}
-    <div class="row my-4">
-        <div class="col-12">
-            <div class="jumbotron">
-                <h1 class="display-4">{{ price.saloon.name }}</h2>
-            </div>
-        </div>  
 
+    {% if price.saloon.imageName is not empty %}
+        <img class="img-center"
+             src="{{ asset('images/saloons/' ~ price.saloon.imageName) | imagine_filter('saloon_page') }}"
+             style="max-width: 500px;"/>
+    {% endif %}
+    <div class="text-center">
         <div class="col-12">
-            <div class="jumbotron">
-                {% for worker in price.saloon.workers %}
-                    <div class="text-center">
-                        <h2 class="hw mb30">{{ worker.firstname }}</h2>
-
-                        {{ render(controller(
-                            'App\\Controller\\BookingController::getSlots', 
-                                {'price': price.id, 'worker': worker.id, 'timestamp': timestamp, 'auto': false}
-                            ))
-                        }}
-                    </div>
-                {% endfor %}
-            </div>
+            <h1 class="salon-title">{{ price.saloon.name }}</h1>
+            <span>{{ price.saloon.location }}</span><br><br>
+            <span>1. Prestation sélectionnée</span><br>
+            <h5 class="card-title my-1">{{ price.name }}</h5>
+            <p class="card-text my-1">{{ price.duration }}min</p>
+            <p class="card-text my-1">{{ price.amount }}€</p>
         </div>
-
-        {# {{ render(controller('AppBundle:Booking:schedule', {'saloon': price.saloon.id})) }} #}
-
+        <div class="col-12">
+            <span>2.Choix de la date et de l'heure</span>
+            {% for worker in price.saloon.workers %}
+                <div class="text-center">
+                    {{ render(controller(
+                        'App\\Controller\\BookingController::getSlots',
+                        {'price': price.id, 'worker': worker.id, 'timestamp': timestamp, 'auto': false}
+                    )) }}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

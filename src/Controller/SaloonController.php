@@ -16,8 +16,6 @@ use App\Form\SubscribeType;
 class SaloonController extends AbstractController
 {
     /**
-	 * Lister les salons si plusieurs, rediriger vers ajout si aucun et rediriger vers un si un
-     *
      * @Route("/saloon/manage", name="saloon_choice")
      */
     public function choice()

@@ -1,30 +1,97 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Boocut - Réservation de rendez-vous de coiffeurs en ligne{% endblock %}
-{% block description %}Boocut vous aide à trouver votre salon de coiffure et réserver votre rendez-vous en ligne. Professionnel ? Boocut peut prendre en charge votre organisation.{% endblock %}
+{% block title %}Lana Beauty - Réservation de manucure en ligne{% endblock %}
+{% block description %}Réserver votre rendez-vous en ligne.{% endblock %}
 
 {% block body %}
 
+    <div class="row justify-content-center">
+        <div class="col-12 my-3">
+            {% for price in prices %}
+                <div class="col-sm-12 col-md-6">
+                    <div class="card price" id="{{ price.id }}">
+                        <div class="card-body">
+                            <h5 class="card-title my-1">{{ price.name }}</h5>
+                            <p class="card-text my-1">{{ price.duration }}min</p>
+                            <p class="card-text my-1">{{ price.amount }}€</p>
+                            <a href="#" class="btn btn-primary">Réserver</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {#Étape 2: Je réserve un horaire}#}
 
+    <div id="choose_day">
+        <div class="row justify-content-center">
+            <div class="col-12 my-3">
+                <div class="text-center">
+                    {% set today = "now" %}
+                    {# 14 = nombre de jours à afficher #}
+                    {% for i in 0..14 %}
+                        {% if today|date('N') == 0 %}
+                            {% set day = 'Dimanche' %}
+                        {% elseif  today|date('N') == 1 %}
+                            {% set day = 'Lundi' %}
+                        {% elseif  today|date('N') == 2 %}
+                            {% set day = 'Mardi' %}
+                        {% elseif  today|date('N') == 3 %}
+                            {% set day = 'Mercredi' %}
+                        {% elseif  today|date('N') == 4 %}
+                            {% set day = 'Jeudi' %}
+                        {% elseif  today|date('N') == 5 %}
+                            {% set day = 'Vendredi' %}
+                        {% elseif  today|date('N') == 6 %}
+                            {% set day = 'Samedi' %}
+                        {% elseif  today|date('N') == 7 %}
+                            {% set day = 'Dimanche' %}
+                        {% endif %}
 
-<div class="row">
-	{% for saloon in saloons %}
-		<div class="col-sm-12 col-md-4">	
-			<div class="card my-3">
-				<div class="card-body">
-					<h5 class="card-title">{{ saloon.name }}</h5>
-					<p class="card-text">{{ saloon.location }}</p>
-					<a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn btn-primary">Rendez-vous</a>
-				</div>
-			</div>
-		</div>
-	{% endfor %}
-</div><br><br>
+                        {% if today|date('m') == 1 %}
+                            {% set month = 'Janvier' %}
+                        {% elseif  today|date('m') == 2 %}
+                            {% set month = 'Février' %}
+                        {% elseif  today|date('m') == 3 %}
+                            {% set month = 'Mars' %}
+                        {% elseif  today|date('m') == 4 %}
+                            {% set month = 'Avril' %}
+                        {% elseif  today|date('m') == 5 %}
+                            {% set month = 'Mai' %}
+                        {% elseif  today|date('m') == 6 %}
+                            {% set month = 'Juin' %}
+                        {% elseif  today|date('m') == 7 %}
+                            {% set month = 'Juillet' %}
+                        {% elseif  today|date('m') == 8 %}
+                            {% set month = 'Août' %}
+                        {% elseif  today|date('m') == 9 %}
+                            {% set month = 'Septembre' %}
+                        {% elseif  today|date('m') == 10 %}
+                            {% set month = 'Octobre' %}
+                        {% elseif  today|date('m') == 11 %}
+                            {% set month = 'Novembre' %}
+                        {% elseif  today|date('m') == 12 %}
+                            {% set month = 'Décembre' %}
+                        {% endif %}
+                        <div class="col-sm-12 col-md-6 my-2">
+                            <a class="btn btn-primary btn-block"
+                               href="{{ path('saloon_public_booking', {'price': 0, 'timestamp': today|date('U') }) }}">
+                                {{ day }} {{ today|date('d') }} {{ month }}
+                            </a>
+                        </div>
+                        {% set today = today|date_modify("+1 day") %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
 
 {% block scripts %}
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&libraries=places"></script>
-	<script src="{{ asset('build/location.js') }}"></script>
+    <script src="{{ asset('build/booking.js') }}"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&libraries=places"></script>
+    <script src="{{ asset('build/location.js') }}"></script>
 {% endblock %}
