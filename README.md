@@ -28,8 +28,12 @@ Création de la base de données:
 * Init DB: `bin/console doctrine:schema:create`
 
 
-Mise à jour schéma en base de données (mysql-driver)
+Mise à jour schéma en base de données 
 ```
  bin/console doctrine:schema:update --force
 ```
 
+Lancer le projet sur le serveur
+```
+ bin/console server:run
+```

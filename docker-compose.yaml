@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    build: docker/dev
+    volumes:
+      - .:/openhanditour:delegated
+      - ~/.ssh:/openhanditour/.ssh
+      - ~/.composer:/openhanditour/.composer
+    ports:
+      - 81:80
+    depends_on:
+      - db
+
+  db:
+#    build: docker/postgres
+    image: mariadb:10.3.20
+    environment:
+      - MYSQL_USER=openhanditour
+      - MYSQL_PASSWORD=openhanditour
+      - MYSQL_DATABASE=lana-beauty
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+    ports:
+      - 3306:3306
