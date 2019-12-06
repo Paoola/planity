@@ -13,12 +13,21 @@ services:
       - db
 
   db:
-#    build: docker/postgres
-    image: mariadb:10.3.20
-    environment:
-      - MYSQL_USER=openhanditour
-      - MYSQL_PASSWORD=openhanditour
-      - MYSQL_DATABASE=lana-beauty
-      - MYSQL_RANDOM_ROOT_PASSWORD=true
+    image: mysql
+    container_name: database
     ports:
-      - 3306:3306
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: lana
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: sf4_phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - 8080:80
+    links:
+      - db
