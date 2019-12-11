@@ -37,6 +37,7 @@ class PriceType extends AbstractType
                 'choice_label' => 'username',
                 'multiple' => true
             ))
+            ->add('category', CategoryType::class)
             ->add('submit', SubmitType::class, array(
                 'label' => $options['labelButton'],
                 'attr' => array(

@@ -49,6 +49,24 @@ class Price
      */
     private $slots;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Category", cascade ={"persist"})
+     */
+    private $category;
+
+
+    public function setCategory(Category $category = null)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+
     public function __construct()
     {
         $this->workers = new ArrayCollection();
