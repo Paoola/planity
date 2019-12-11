@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -75,4 +76,17 @@ class PriceController extends AbstractController
         	'form' => $form->createView(),
         ));
     }
+
+    /**
+     * @Route("/delete/{saloon}/{price}", name="delete_price")
+     */
+    public function removePrice(Saloon $saloon,Price $price){
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($price);
+        $em->flush();
+
+        return $this->redirectToRoute('saloon_manage_price', array('saloon' => $saloon->getId()));
+    }
+
+
 }

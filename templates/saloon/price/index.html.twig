@@ -12,7 +12,7 @@
 	<div class="col-lg-10 col-md-12">
 		<div class="row mt-2">
 			<div class="col-6">
-				<h1>Tarifs</h1>
+				<h1>Nos soins</h1>
 			</div>
 			
 			<div class="col-6">
@@ -23,10 +23,11 @@
 
 		<table class="table text-center">
 			<tr>
-				<th><b>Nom</b></th>
+				<th><b>Soins</b></th>
 				<th><b>Durée</b></th>
 				<th><b>Prix</b></th>
-				<th><b>Action</b></th>
+				<th><b>Edit</b></th>
+				<th><b>Supprimer</b></th>
 			</tr>
 			{% for price in saloon.prices %}
 				<tr>	
@@ -34,6 +35,7 @@
 					<td>{{ price.duration }} min</td>
 					<td>{{ price.amount }}€</td>
 					<td><a href="{{ path('saloon_manage_price_edit', {'saloon': saloon.id, 'price': price.id}) }}">Modifier</a></td>
+					<td><a href="{{ path('delete_price', {'saloon': saloon.id, 'price':price.id}) }}">Supprimer</a></td>
 				</tr>
 			{% endfor %}
 		</table>
