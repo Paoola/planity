@@ -12,7 +12,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                default_target_path: saloon_choice
+                default_target_path: home
             logout:
                 path:   /logout
                 target: /

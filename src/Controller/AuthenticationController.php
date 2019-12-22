@@ -26,7 +26,18 @@ class AuthenticationController extends AbstractController
     {
 	    $error = $authenticationUtils->getLastAuthenticationError();
 	    $lastUsername = $authenticationUtils->getLastUsername();
+        //nothing to do here if already logged in
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute('home');
+        }
 
+        try {
+            if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                return $this->redirectToRoute('home');
+            }
+        } catch (AuthenticationCredentialsNotFoundException $e) {
+            return $this->redirectToRoute('login');
+        }
         $form = $this->createForm(LoginType::class);
 
 	    return $this->render('authentication/login.html.twig', array(
@@ -59,7 +70,7 @@ class AuthenticationController extends AbstractController
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main', serialize($token));
 
-            return $this->redirectToRoute('saloon_add');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('authentication/register.html.twig', array(
