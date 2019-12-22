@@ -1,70 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <title>{% block title %}Lana Beauty - Réservation de manucure en ligne{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{% block description %}Lana Beauty vous aide à réserver votre rendez-vous en ligne.{% endblock %}">
-    
+    <meta name="description"
+          content="{% block description %}Lana Beauty vous aide à réserver votre rendez-vous en ligne.{% endblock %}">
+
     <!-- Désindexation des pages de réservation -->
-    {% if 
-      app.request.get('_route') == 'saloon_public_booking_form' or 
-      app.request.get('_route') == 'saloon_public_booking_sms' or 
-      app.request.get('_route') == 'saloon_public_booking_success' or 
-      app.request.get('_route') == 'saloon_public_booking' %}
+    {% if
+        app.request.get('_route') == 'saloon_public_booking_form' or
+        app.request.get('_route') == 'saloon_public_booking_sms' or
+        app.request.get('_route') == 'saloon_public_booking_success' or
+        app.request.get('_route') == 'saloon_public_booking' %}
         <meta name="robots" content="noindex">
     {% endif %}
 
     {{ encore_entry_link_tags('app') }}
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{{ path('home') }}">
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ path('home') }}">
         <img src="{{ asset('build/images/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
         LANA BEAUTY
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          {% if is_granted('ROLE_USER') %}
-            <li class="nav-item">
-              <a class="nav-link{% if page_id is defined and page_id != 10 %} active{% endif %}" href="{{ path('saloon_choice') }}">Mon salon</a>
-            </li>
-            {% if is_granted('ROLE_WORKER') %}
-              <li class="nav-item">
-                <a class="nav-link{% if page_id is defined and page_id == 10 %} active{% endif %}" href="{{ path('saloon_diary') }}">Mon Agenda</a>
-              </li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link{% if page_id is defined and page_id != 10 %} active{% endif %}"
+                       href="{{ path('saloon_choice') }}">Mon salon</a>
+                </li>
+                {% if is_granted('ROLE_WORKER') %}
+                    <li class="nav-item">
+                        <a class="nav-link{% if page_id is defined and page_id == 10 %} active{% endif %}"
+                           href="{{ path('saloon_diary') }}">Mon Agenda</a>
+                    </li>
+                {% endif %}
             {% endif %}
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
-            </li>
-          {% endif %}
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Mon compte
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" href="{{ path('login') }}">Se connecter</a>
+                        {#<a class="dropdown-item" href="{{ path('register') }}">S'inscrire</a>#}
+                        {% if is_granted('ROLE_USER') %}
+                            {#<a class="dropdown-item" href="{{ path('customer_manage_slot') }}">Mes Rendez-vous</a>#}
+                            <a class="dropdown-item" href="{{ path('logout') }}">Se déconnecter</a>
+                        {% endif %}
+                    </div>
+                </div>
         </ul>
-      </div>
-    </nav>
+    </div>
+</nav>
 
-    {% for flashMessage in app.session.flashbag.get('success') %}
-      <div class="row my-2">
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="row my-2">
         <div class="container">
-          <div class="alert alert-success">
-              {{ flashMessage }}
-          </div>
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
         </div>
-      </div>
-    {% endfor %}
+    </div>
+{% endfor %}
 
-    {% if app.request.get('_route') == 'home' or app.request.get('_route') == 'search' %}
-      {% include "partials/search.html.twig" %}
-    {% endif %}
+{% if app.request.get('_route') == 'home' or app.request.get('_route') == 'search' %}
+    {% include "partials/search.html.twig" %}
+{% endif %}
 
-      {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 
-    {{ encore_entry_script_tags('app') }}
-    {% block scripts %}{% endblock %}
-  </body>
+{{ encore_entry_script_tags('app') }}
+{% block scripts %}{% endblock %}
+</body>
 </html>
