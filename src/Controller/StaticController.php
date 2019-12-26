@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Price;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+
+use App\Entity\Saloon;
 
 class StaticController extends AbstractController
 {
@@ -14,10 +15,13 @@ class StaticController extends AbstractController
     public function index()
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $prices = $entityManager->getRepository(Price::class)->findAll();
+        $saloons = $entityManager->getRepository(Saloon::class)->findAll();
+        shuffle($saloons);
+
+        $saloons = array_slice($saloons, 0, 3);
 
         return $this->render('static/homepage.html.twig', array(
-            'prices' => $prices,
+            'saloons' => $saloons
         ));
     }
 }

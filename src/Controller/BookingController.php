@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,9 +40,14 @@ class BookingController extends AbstractController
      */
     public function index($timestamp = 0, Price $price)
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $prices = $entityManager->getRepository(Price::class)->findAll();
+        $date = new \DateTime();
+
         return $this->render('booking/index.html.twig', array(
             'price'     => $price,
-            'timestamp' => $timestamp
+            'prices'     => $prices,
+            'date' => $date
         ));
     }
 
@@ -166,9 +172,11 @@ class BookingController extends AbstractController
         ));
     }
 
-    public function getSlots(Price $price, User $worker, $timestamp, ManageSlot $slot, $auto)
+    public function getSlots(Price $price, User $worker, $timestamp, ManageSlot $slot, $auto, $test = 0)
     {
         $error = null;
+
+        //$day = new \DateTime($timestamp);
         $day = \DateTime::createFromFormat('U', $timestamp);
 
         $em = $this->getDoctrine()->getManager();
@@ -193,7 +201,6 @@ class BookingController extends AbstractController
                 }
             }
         }
-        
         // Récupération des slots disponibles
         $slots = $slot->freeTime($worker, $day, $price->getDuration() * 60);
 
