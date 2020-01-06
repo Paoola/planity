@@ -82,9 +82,9 @@ class ManageSlot
         $timestamp_day = $date;
         $atd = $timestamp_day->setTime(12,00)->getTimestamp(); // debut
         $atf = $timestamp_day->setTime(18, 00)->getTimestamp(); // fin
-        /*dump(\DateTime::createFromFormat('U', $atd));
-        dump(\DateTime::createFromFormat('U', $atf));
-        die;*/
+//        dump(\DateTime::createFromFormat('U', $atd));
+//        dump(\DateTime::createFromFormat('U', $atf));
+//        die;
         $att = $atd;
         $dispo = true;
         $reprise = 0;
