@@ -1,15 +1,15 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}{{ saloon.name }} - {{ parent() }}{% endblock %}
+{#{% block title %}{{ saloon.name }} - {{ parent() }}{% endblock %}#}
 
 {% block body %}
 	{% set today = "now"|date_modify("+1 day") %}
 
 <div class="row my-4">
     <div class="col-lg-8 col-md-8 col-sm-12">
-        <div class="jumbotron">
-            <h1 class="display-4 saloon-name">{{ saloon.name }}</h1>
-        </div>
+        {#<div class="jumbotron">#}
+            {#<h1 class="display-4 saloon-name">{{ saloon.name }}</h1>#}
+        {#</div>#}
 
         {% if saloon.customText is not null %}
             <div class="jumbotron text-center p-4">
@@ -25,11 +25,11 @@
                     <h2>Prestations</h2>
                 {% endif %}
 
-                {% if not saloon.isPremium %}
-                    <div class="alert alert-warning" role="alert">
-                        Ce salon ne prend pas de réservations en ligne
-                    </div>
-                {% endif %}
+                {#{% if not saloon.isPremium %}#}
+                    {#<div class="alert alert-warning" role="alert">#}
+                        {#Ce salon ne prend pas de réservations en ligne#}
+                    {#</div>#}
+                {#{% endif %}#}
 
                 <div class="row">
                     {% for price in saloon.prices %}
