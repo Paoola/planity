@@ -5,7 +5,6 @@ security:
     providers:
         user_db:
             entity: { class: App\Entity\User, property: email }
-    
     firewalls:
         main:
             anonymous: ~
@@ -24,7 +23,7 @@ security:
 
     role_hierarchy:
         ROLE_WORKER: ROLE_USER
-        ROLE_ADMIN: ROLE_USER
+        ROLE_ADMIN: ROLE_ADMIN
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }

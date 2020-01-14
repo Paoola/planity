@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ use App\Service\Mailer;
 class AuthenticationController extends AbstractController
 {
     /**
-     * @Route("/connexion", name="login")
+     * @Route("/login", name="login")
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
