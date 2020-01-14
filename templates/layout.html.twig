@@ -44,22 +44,48 @@
                     </li>
                 {% endif %}
             {% endif %}
-                <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Mon compte
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <a class="dropdown-item" href="{{ path('login') }}">Se connecter</a>
+                {#<div class="btn-group" role="group">#}
+                    {#<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle"#}
+                            {#data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                        {#Mon compte#}
+                    {#</button>#}
+                    {#<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">#}
+                        {#<a class="dropdown-item" href="{{ path('login') }}">Se connecter</a>#}
                         {#<a class="dropdown-item" href="{{ path('register') }}">S'inscrire</a>#}
-                        {% if is_granted('ROLE_USER') %}
+                        {#{% if is_granted('ROLE_USER') %}#}
                             {#<a class="dropdown-item" href="{{ path('customer_manage_slot') }}">Mes Rendez-vous</a>#}
-                            <a class="dropdown-item" href="{{ path('logout') }}">Se déconnecter</a>
-                        {% endif %}
-                    </div>
-                </div>
+                            {#<a class="dropdown-item" href="{{ path('logout') }}">Se déconnecter</a>#}
+                        {#{% endif %}#}
+                    {#</div>#}
+                {#</div>#}
         </ul>
     </div>
+</nav>
+<h1 class="logo">Burger Menu <span>by JLNLJN</span></h1>
+
+<input id="burger" type="checkbox" />
+
+<label for="burger">
+    <span></span>
+    <span></span>
+    <span></span>
+</label>
+
+<nav>
+    <ul>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li>
+                <a {% if page_id is defined and page_id != 10 %} {% endif %}
+                   href="{{ path('saloon_choice') }}">Mon salon</a>
+            </li>
+            {% if is_granted('ROLE_WORKER') %}
+                <li>
+                    <a {% if page_id is defined and page_id == 10 %} {% endif %}
+                       href="{{ path('saloon_diary') }}">Mon Agenda</a>
+                </li>
+            {% endif %}
+        {% endif %}
+    </ul>
 </nav>
 
 {% for flashMessage in app.session.flashbag.get('success') %}
