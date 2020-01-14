@@ -4,85 +4,102 @@
 
 {% block body %}
     {% set date = null %}
-    <div class="row my-4">
-        <div class="col-12">
-            <div class="jumbotron">
-                <h1 class="display-4">{{ price.saloon.name }}</h1>
+    <div class="vertical-spacer"></div>
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col">
+                <h1 class="salon-title">{{ price.saloon.name }}</h1>
+                <span>{{ price.saloon.location }}</span><br><br>
+                <span>1. Prestation sélectionnée</span><br>
+                <h5 class="card-title my-1">{{ price.name }}</h5>
+                <p class="card-text my-1">{{ price.duration }}min</p>
+                <p class="card-text my-1">{{ price.amount }}€</p>
+            </div>
+        </div>
+    </div>
+    <div class="vertical-spacer"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered table-responsive-sm table-dark">
+                    <thead>
+                    <tr>
+                        {% set today = "now" %}
+                        {% for j in 1..7 %}
+                            {% if today|date('N') == 0 %}
+                                {% set day = 'dim.' %}
+                            {% elseif  today|date('N') == 1 %}
+                                {% set day = 'lun.' %}
+                            {% elseif  today|date('N') == 2 %}
+                                {% set day = 'mar.' %}
+                            {% elseif  today|date('N') == 3 %}
+                                {% set day = 'mer.' %}
+                            {% elseif  today|date('N') == 4 %}
+                                {% set day = 'jeu.' %}
+                            {% elseif  today|date('N') == 5 %}
+                                {% set day = 'ven.' %}
+                            {% elseif  today|date('N') == 6 %}
+                                {% set day = 'sam.' %}
+                            {% elseif  today|date('N') == 7 %}
+                                {% set day = 'dim.' %}
+                            {% endif %}
+                            {% if today|date('m') == 1 %}
+                                {% set month = 'Janvier' %}
+                            {% elseif  today|date('m') == 2 %}
+                                {% set month = 'Février' %}
+                            {% elseif  today|date('m') == 3 %}
+                                {% set month = 'Mars' %}
+                            {% elseif  today|date('m') == 4 %}
+                                {% set month = 'Avril' %}
+                            {% elseif  today|date('m') == 5 %}
+                                {% set month = 'Mai' %}
+                            {% elseif  today|date('m') == 6 %}
+                                {% set month = 'Juin' %}
+                            {% elseif  today|date('m') == 7 %}
+                                {% set month = 'Juillet' %}
+                            {% elseif  today|date('m') == 8 %}
+                                {% set month = 'Août' %}
+                            {% elseif  today|date('m') == 9 %}
+                                {% set month = 'Septembre' %}
+                            {% elseif  today|date('m') == 10 %}
+                                {% set month = 'Octobre' %}
+                            {% elseif  today|date('m') == 11 %}
+                                {% set month = 'Novembre' %}
+                            {% elseif  today|date('m') == 12 %}
+                                {% set month = 'Décembre' %}
+                            {% endif %}
+                            <th>
+                                {{ day }} <br>
+                                {{ today|date('d') }} {{ month }}
+                            </th>
+                            {% set today = today|date_modify("+1 day") %}
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for worker in price.saloon.workers %}
+                            {% set d = "now" %}
+                            {% for j in 0..6 %}
+                                <td class="text-dark">
+                                    {{ render(controller(
+                                        'App\\Controller\\BookingController::getSlots',
+                                        {'price': price.id, 'timestamp': d|date('U'), 'worker' : worker, 'auto': false, 'test':j}
+                                    )) }}
+                                </td>
+                                {% set d = d|date_modify("+1 day") %}
+                            {% endfor %}
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <table class="table table-dark">
-        <thead>
-        <tr>
-            {% set today = "now" %}
-            {% for j in 1..7 %}
-                {% if today|date('N') == 0 %}
-                    {% set day = 'dim.' %}
-                {% elseif  today|date('N') == 1 %}
-                    {% set day = 'lun.' %}
-                {% elseif  today|date('N') == 2 %}
-                    {% set day = 'mar.' %}
-                {% elseif  today|date('N') == 3 %}
-                    {% set day = 'mer.' %}
-                {% elseif  today|date('N') == 4 %}
-                    {% set day = 'jeu.' %}
-                {% elseif  today|date('N') == 5 %}
-                    {% set day = 'ven.' %}
-                {% elseif  today|date('N') == 6 %}
-                    {% set day = 'sam.' %}
-                {% elseif  today|date('N') == 7 %}
-                    {% set day = 'dim.' %}
-                {% endif %}
-                {% if today|date('m') == 1 %}
-                    {% set month = 'Janvier' %}
-                {% elseif  today|date('m') == 2 %}
-                    {% set month = 'Février' %}
-                {% elseif  today|date('m') == 3 %}
-                    {% set month = 'Mars' %}
-                {% elseif  today|date('m') == 4 %}
-                    {% set month = 'Avril' %}
-                {% elseif  today|date('m') == 5 %}
-                    {% set month = 'Mai' %}
-                {% elseif  today|date('m') == 6 %}
-                    {% set month = 'Juin' %}
-                {% elseif  today|date('m') == 7 %}
-                    {% set month = 'Juillet' %}
-                {% elseif  today|date('m') == 8 %}
-                    {% set month = 'Août' %}
-                {% elseif  today|date('m') == 9 %}
-                    {% set month = 'Septembre' %}
-                {% elseif  today|date('m') == 10 %}
-                    {% set month = 'Octobre' %}
-                {% elseif  today|date('m') == 11 %}
-                    {% set month = 'Novembre' %}
-                {% elseif  today|date('m') == 12 %}
-                    {% set month = 'Décembre' %}
-                {% endif %}
-                <th>
-                    {{ day }} <br>
-                    {{ today|date('d') }} {{ month }}
-                </th>
-                {% set today = today|date_modify("+1 day") %}
-            {% endfor %}
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            {% for worker in price.saloon.workers %}
-                {% set d = "now" %}
-                {% for j in 0..6 %}
-                    <td class="text-dark">
-                        {{ render(controller(
-                            'App\\Controller\\BookingController::getSlots',
-                            {'price': price.id, 'timestamp': d|date('U'), 'worker' : worker, 'auto': false, 'test':j}
-                        )) }}
-                    </td>
-                    {% set d = d|date_modify("+1 day") %}
-                {% endfor %}
-            {% endfor %}
-        </tr>
-        </tbody>
-    </table>
+    <div class="vertical-spacer"></div>
+
 {% endblock %}
 
