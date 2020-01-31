@@ -20,73 +20,74 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ path('home') }}">
-        <img src="{{ asset('build/images/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-        LANA BEAUTY
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div class="container-fluid">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <p>
+                <a class="nav-home" href>COIFFEUR</a> &nbsp;
+                <a class="nav-home" href>INSTITUT DE BEAUTÉ</a> &nbsp;
+                <a class="nav-home" href>BARBIER</a> &nbsp;
+                <a class="nav-home" href>MANUCURE ET PÉDICURE</a> &nbsp;
+                <a class="nav-home" href>CONTACT</a> &nbsp;
+            </p>
+            <div class="clearfix">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item">
-                    <a class="nav-link{% if page_id is defined and page_id != 10 %} active{% endif %}"
-                       href="{{ path('saloon_choice') }}">Mon salon</a>
-                </li>
-                {% if is_granted('ROLE_WORKER') %}
-                    <li class="nav-item">
-                        <a class="nav-link{% if page_id is defined and page_id == 10 %} active{% endif %}"
-                           href="{{ path('saloon_diary') }}">Mon Agenda</a>
-                    </li>
-                {% endif %}
-            {% endif %}
-                {#<div class="btn-group" role="group">#}
-                    {#<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle"#}
-                            {#data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-                        {#Mon compte#}
-                    {#</button>#}
-                    {#<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">#}
-                        {#<a class="dropdown-item" href="{{ path('login') }}">Se connecter</a>#}
-                        {#<a class="dropdown-item" href="{{ path('register') }}">S'inscrire</a>#}
-                        {#{% if is_granted('ROLE_USER') %}#}
-                            {#<a class="dropdown-item" href="{{ path('customer_manage_slot') }}">Mes Rendez-vous</a>#}
-                            {#<a class="dropdown-item" href="{{ path('logout') }}">Se déconnecter</a>#}
-                        {#{% endif %}#}
-                    {#</div>#}
-                {#</div>#}
-        </ul>
-    </div>
-</nav>
-<h1 class="logo">Burger Menu <span>by JLNLJN</span></h1>
+            <button type="button" class="btn btn-outline-dark">
+                <a class="nav-home" href>Devenir Partenaire</a>
+            </button>
+            <button type="button" class="btn btn-dark">
+                <a class="nav-home" href>MON COMPTE</a>
+            </button>
+        </div>
+        </div>
+    </nav>
+</div>
 
-<input id="burger" type="checkbox" />
 
-<label for="burger">
-    <span></span>
-    <span></span>
-    <span></span>
-</label>
+<hr class="style1">
+</body>
+{#<nav class="navbar navbar-expand-lg navbar-light bg-light">#}
+{#<a class="navbar-brand" href="{{ path('home') }}">#}
+{#<img src="{{ asset('build/images/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">#}
+{#LANA BEAUTY#}
+{#</a>#}
+{#<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"#}
+{#aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#<span class="navbar-toggler-icon"></span>#}
+{#</button>#}
 
-<nav>
-    <ul>
-        {% if is_granted('ROLE_ADMIN') %}
-            <li>
-                <a {% if page_id is defined and page_id != 10 %} {% endif %}
-                   href="{{ path('saloon_choice') }}">Mon salon</a>
-            </li>
-            {% if is_granted('ROLE_WORKER') %}
-                <li>
-                    <a {% if page_id is defined and page_id == 10 %} {% endif %}
-                       href="{{ path('saloon_diary') }}">Mon Agenda</a>
-                </li>
-            {% endif %}
-        {% endif %}
-    </ul>
-</nav>
+{#<div class="collapse navbar-collapse" id="navbarSupportedContent">#}
+{#<ul class="navbar-nav ml-auto">#}
+{#{% if is_granted('ROLE_ADMIN') %}#}
+{#<li class="nav-item">#}
+{#<a class="nav-link{% if page_id is defined and page_id != 10 %} active{% endif %}"#}
+{#href="{{ path('saloon_choice') }}">Mon salon</a>#}
+{#</li>#}
+{#{% if is_granted('ROLE_WORKER') %}#}
+{#<li class="nav-item">#}
+{#<a class="nav-link{% if page_id is defined and page_id == 10 %} active{% endif %}"#}
+{#href="{{ path('saloon_diary') }}">Mon Agenda</a>#}
+{#</li>#}
+{#{% endif %}#}
+{#{% endif %}#}
+{#<div class="btn-group" role="group">#}
+{#<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle"#}
+{#data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#Mon compte#}
+{#</button>#}
+{#<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">#}
+{#<a class="dropdown-item" href="{{ path('login') }}">Se connecter</a>#}
+{#<a class="dropdown-item" href="{{ path('register') }}">S'inscrire</a>#}
+{#{% if is_granted('ROLE_USER') %}#}
+{#<a class="dropdown-item" href="{{ path('customer_manage_slot') }}">Mes Rendez-vous</a>#}
+{#<a class="dropdown-item" href="{{ path('logout') }}">Se déconnecter</a>#}
+{#{% endif %}#}
+{#</div>#}
+{#</div>#}
+{#</ul>#}
+{#</div>#}
+{#</nav>#}
 
 {% for flashMessage in app.session.flashbag.get('success') %}
     <div class="row my-2">
