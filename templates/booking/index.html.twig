@@ -19,7 +19,6 @@
         </div>
     </div>
     <div class="vertical-spacer"></div>
-
     <div class="container">
         <div class="row">
             <div class="col">
@@ -86,7 +85,7 @@
                                 <td class="text-dark">
                                     {{ render(controller(
                                         'App\\Controller\\BookingController::getSlots',
-                                        {'price': price.id, 'timestamp': d|date('U'), 'worker' : worker, 'auto': false, 'test':j}
+                                        {'price': price.id, 'timestamp': d|date('U'), 'worker' : worker, 'auto': false, 'test':j, 'total' : total}
                                     )) }}
                                 </td>
                                 {% set d = d|date_modify("+1 day") %}

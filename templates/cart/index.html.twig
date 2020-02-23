@@ -1,0 +1,63 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Hello CartController!
+{% endblock %}
+
+{% block body %}
+    <div class="bg-light p-3">
+        <h1>Votre panier</h1>
+    </div>
+
+    {% if items | length > 0 %}
+        <table class="table table-light">
+            <thead>
+            <tr>
+                <th scope="col">Produit</th>
+                <th scope="col">Horraire</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Quantité</th>
+                {#<th scope="col">Total</th>#}
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+            <tr>
+                <th scope="row">{{ item.product.name }}</th>
+                <td> XXX </td>
+                <td>{{ item.product.amount }} euros</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.product.amount * item.quantity }} euros</td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+            {#{% for item in item.product.orderItems %}#}
+                {#{{ item  }}#}
+            {#{% endfor %}#}
+
+
+            {#{% endfor %}#}
+            {#<td class="text-dark">
+                {{ render(controller(
+                    'App\\Controller\\BookingController::getSlots',
+                    {'price':0, 'worker' : items[0].product.saloon.workers, 'auto': false}
+                )) }}
+            </td>#}
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td>{{ total }} euros</td>
+            </tr>
+            <td>
+            <a class="btn btn-success float-right"
+            href="{{ path('saloon_public_booking', {'price': items[0].product.id  }) }}">
+            Procéder au paiement
+            </a>
+            </td>}
+
+        </table>
+    {% else %}
+
+    <p>Surprise, c'est vide !</p>
+    {% endif %}
+
+{% endblock %}

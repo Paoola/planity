@@ -14,19 +14,23 @@
                     avec <b>{{ slot.worker.firstname|capitalize }} {{ slot.worker.lastname|capitalize }}</b><br>
                     à l'adresse <b>{{ slot.saloon.location }}</b>
                 </p>
+                <h1>Détails de votre commande</h1>
+                <p>Votre commande</p>
 
-                <h2>Vous avez déjà utilisé Lana Beauty ?  </h2>
+                {#<p>Total: {{ price.amount }}euros</p>#}
 
-                <form action="{{ path('login') }}" id="formLogin" method="post">
-                    <label for="username"></label>
-                    <input type="text" id="username" name="_username"/>
-                    <label for="password"></label>
-                    <input type="password" id="password" name="_password" />
-                    <button type="submit" id="submit">login</button>
-                </form>
-                <div id="server-results"><!-- For server results --></div>
+                {#<h2>Vous avez déjà utilisé Lana Beauty ?  </h2>#}
 
-                <h2>Pour qui faites vous la réservation ? </h2>
+                {#<form action="{{ path('login') }}" id="formLogin" method="post">#}
+                    {#<label for="username"></label>#}
+                    {#<input type="text" id="username" name="_username"/>#}
+                    {#<label for="password"></label>#}
+                    {#<input type="password" id="password" name="_password" />#}
+                    {#<button type="submit" id="submit">login</button>#}
+                {#</form>#}
+                {#<div id="server-results"><!-- For server results --></div>#}
+
+                {#<h2>Pour qui faites vous la réservation ? </h2>#}
                 {{ form_start(form, {'attr': {'id': 'payment-form'}}) }}
 
                 {{ form_row(form.name) }}
