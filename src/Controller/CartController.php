@@ -1,88 +1,59 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\Price;
-use App\Repository\PriceRepository;
+use App\Form\OrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
     /**
-     * @Route("/panier/add/{price}", name="cart_add")
+     * @Route("/cart", name="cart")
      */
-    public function add(Request $request, $price, SessionInterface $session, PriceRepository $priceRepository)
+    public function index(Request $request)
     {
-        $methodResponse = $request->query->get('response');
-        $shoppingCart = $session->get('shoppingCart', []);
-        $nb = 0;
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($price) {
-            if (!empty($shoppingCart[$price])) {
-                $shoppingCart[$price]++;
-            } else {
-                //limit number item to add to cart
-                $shoppingCart[(int)$price] = 1;
-            }
-            $session->set('shoppingCart', $shoppingCart);
-        }
+        $order = new Order();
 
-        if ($methodResponse !== 'JSON') {
-            if ($request->get('response') !== 'HTML') {
-                return $this->redirectToRoute("cart_index");
-            }
-
-            return $this->index($priceRepository, $session);
-
-        }
-
-
-        foreach($shoppingCart as $id => $quantity){
-            $nb += $quantity;
-        }
-
-        return new Response($nb);
-    }
-
-    /**
-     * @Route("/panier", name="cart_index")
-     */
-    public function index(PriceRepository $priceRepository, SessionInterface $session)
-    {
-
-        $panier = $session->get('shoppingCart', []);
-
-        $panierWithData = [];
-
-        foreach($panier as $id => $quantity){
-            $panierWithData[] = [
-                'product' => $priceRepository->find($id),
-                'quantity' => $quantity
-            ];
-        }
-
+        $products = array();
         $total = 0;
-
-        foreach ($panierWithData as $item){
-
-            $totalItem = $item['product']->getAmount() * $item['quantity'];
-
-            $total += $totalItem;
+        if ($session->get('cart')) {
+            foreach ($session->get('cart') as $cart) {
+                $product = $em->getRepository(Price::class)->find($cart);
+                $products[] = $product;
+                $total = $total + $product->getAmount();
+                $order->addProduct($product);
+            }
         }
 
+        \Stripe\Stripe::setApiKey('sk_test_HtIzHZzux5WKTYvYPZy2KRz5');
 
+        $intent = \Stripe\PaymentIntent::create([
+            'amount' => intval($total) * 100,
+            'currency' => 'eur',
+            'payment_method_types' => ['card'],
+        ]);
 
-        return $this->render('cart/index.html.twig',
-            [
-                'items' => $panierWithData,
-                'total' => $total,
-            ]
-        );
+        $form = $this->createForm(OrderType::class, $order);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('POST') && $form->isValid()) {
+            $em->persist($order);
+            $em->flush();
+
+            return $this->redirectToRoute('saloon_public_booking', array('price' => 4));
+        }
+
+        return $this->render('cart/index.html.twig', array(
+            'products' => $products,
+            'form' => $form->createView(),
+            'intent' => $intent
+        ));
     }
 }

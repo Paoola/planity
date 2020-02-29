@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+
+    <div class="col-6 offset-3">
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.duration }}</p>
+                <p class="card-text"><small class="text-muted">{{ product.amount }}€</small></p>
+            </div>
+            {#<img src="{{ asset('build/images/' ~ product.image ~ 'booking-success.jpg') }}" class="card-img-top" alt="{{ product.name }}">#}
+
+            <a href="{{ path('product', {'id': product.id}) }}?addCart=true" class="btn btn-primary">Ajouter au panier</a>
+        </div>
+    </div>
+
+{% endblock %}

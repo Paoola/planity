@@ -43,9 +43,7 @@
                 <a class="nav-home" href>MON COMPTE</a>
             </button>
                 <button>
-                    <a id="basketIconNb" href="{{ path('cart_add', {'price': 0  }) ~ '?response=HTML' }}">
-                        Panier
-                    </a>
+                    <a class="text-white" href="{{ path('cart') }}">Panier</a>
                 </button>
             </div>
         </div>
@@ -112,17 +110,18 @@
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-        let urlAddBasket = "{{ path('cart_add', {'price': 0  }) }}";
-        $.ajax({url: urlAddBasket+'?response=JSON', success: (result) => {
-            $("#basketIconNb").html('Panier '+(result));
-        }});
-    });
-</script>
+{#<script>#}
+    {#$(document).ready(function() {#}
+        {#let urlAddBasket = "{{ path('cart_add', {'price': 0  }) }}";#}
+        {#$.ajax({url: urlAddBasket+'?response=JSON', success: (result) => {#}
+            {#$("#basketIconNb").html('Panier '+(result));#}
+        {#}});#}
+    {#});#}
+{#</script>#}
 {% block body %}{% endblock %}
-
-{{ encore_entry_script_tags('app') }}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 {% block scripts %}{% endblock %}
 </body>
 </html>

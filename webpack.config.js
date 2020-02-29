@@ -27,6 +27,7 @@ Encore
     .addEntry('prices', './assets/js/prices.js')
     .addEntry('multipleDays', './assets/js/multipleDays.js')
     .addEntry('calendar', './assets/js/calendar.js')
+    .addEntry('stripe', './assets/js/stripe.js')
 
     /*
      * FEATURE CONFIG

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Datetime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,7 +28,7 @@ class Order
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Price")
      */
-    private $prices;
+    private $products;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -36,8 +37,8 @@ class Order
 
     public function __construct()
     {
-        $this->datetime = new \Datetime();
-        $this->prices = new ArrayCollection();
+        $this->datetime = new Datetime();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,15 +61,15 @@ class Order
     /**
      * @return Collection|Price[]
      */
-    public function getPrices(): Collection
+    public function getProducts(): Collection
     {
-        return $this->prices;
+        return $this->products;
     }
 
-    public function addProduct(Price $price): self
+    public function addProduct(Price $product): self
     {
-        if (!$this->prices->contains($price)) {
-            $this->prices[] = $price;
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
         }
 
         return $this;
@@ -76,8 +77,8 @@ class Order
 
     public function removeProduct(Price $product): self
     {
-        if ($this->prices->contains($product)) {
-            $this->prices->removeElement($product);
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
         }
 
         return $this;

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,6 +25,26 @@ class PriceController extends AbstractController
         ));
     }
 
+    /**
+     * @Route("/price/{id}", name="product")
+     */
+    public function show(Price $product, Request $request)
+    {
+        $session = new Session();
+
+        if ($request->query->get('addCart')) {
+            $productId = $product->getId();
+            $cart = ($session->get('cart') != null) ? $session->get('cart') : [];
+            $cart[] = $productId;
+            $session->set('cart', $cart);
+
+            return $this->redirectToRoute('product', array('id' => $productId));
+        }
+
+        return $this->render('saloon/price/show.html.twig', array(
+            'product' => $product
+        ));
+    }
     /**
      * @Route("/saloon/manage/price/new/{saloon}", name="saloon_manage_price_new")
      */

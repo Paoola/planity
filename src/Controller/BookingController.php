@@ -79,7 +79,7 @@ class BookingController extends AbstractController
 
             // Paiement
             if (!empty($request->request->get('stripeToken'))) {
-                
+
                 \Stripe\Stripe::setApiKey(getenv('SK_STRIPE'));
                 $charge = \Stripe\Charge::create([
                     'amount' => $price->getAmount() * 100,
@@ -88,7 +88,7 @@ class BookingController extends AbstractController
                     'source' => $request->request->get('stripeToken'),
                     'statement_descriptor' => 'Réservation boocut.fr',
                 ]);
-                
+
                 if ($charge->status == 'succeeded') {
                     $slot->setIsPaid(true);
                     $slot->setIsValid(true);

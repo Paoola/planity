@@ -11,19 +11,19 @@
             {#<h1 class="display-4 saloon-name">{{ saloon.name }}</h1>#}
         {#</div>#}
 
-        {% if saloon.customText is not null %}
-            <div class="jumbotron text-center p-4">
-                <p class="mb-0">{{ saloon.customText }}</p>
-            </div>
-        {% endif %}
+        {#{% if saloon.customText is not null %}#}
+            {#<div class="jumbotron text-center p-4">#}
+                {#<p class="mb-0">{{ saloon.customText }}</p>#}
+            {#</div>#}
+        {#{% endif %}#}
 
         <div id="choose_prices">
             <div class="jumbotron py-5 text-center">
-                {% if saloon.bookingActive %}
-                    <h2>Choisissez votre prestation</h2>
-                {% else %}
-                    <h2>Prestations</h2>
-                {% endif %}
+                {#{% if saloon.bookingActive %}#}
+                    {#<h2>Choisissez votre prestation</h2>#}
+                {#{% else %}#}
+                    {#<h2>Prestations</h2>#}
+                {#{% endif %}#}
 
                 {#{% if not saloon.isPremium %}#}
                     {#<div class="alert alert-warning" role="alert">#}
@@ -39,10 +39,8 @@
                                     <h5 class="card-title my-1">{{ price.name }}</h5>
                                     <p class="card-text my-1">{{ price.duration }}min</p>
                                     <p class="card-text my-1">{{ price.amount }}€</p>
-                                    <a href="#" class="btn btn-success float-right action-addBasket" id="{{ price.id }}">
-                                        <i class="fas fa-shopping-cart mr-1"></i>
-                                        Ajouter
-                                    </a>
+                                    <a href="{{ path('product', {'id': price.id}) }}?addCart=true" class="btn btn-primary">Ajouter au panier</a>
+
                                 </div>
                             </div>
                         </div>
@@ -51,17 +49,16 @@
             </div>
         </div>
     </div>
-
-    <script>
-        let urlAddBasket = "{{ path('cart_add', {'price': 0  }) }}";
-        console.log(urlAddBasket);
-        //urlAddBasket = urlAddBasket.substring(0, urlAddBasket.length - 1);
-        $(".action-addBasket").click(function() {
-            console.log($(this)[0].id);
-            let id = $(this)[0].id;
-            $.ajax({url: urlAddBasket+id+'?response=JSON', success: (result) => {
-                $("#basketIconNb").html('Panier '+(result));
-            }});
-        })
-    </script>
+    {#<script>#}
+        {#let urlAddBasket = "{{ path('cart_add', {'price': 0  }) }}";#}
+        {#console.log(urlAddBasket);#}
+        {#//urlAddBasket = urlAddBasket.substring(0, urlAddBasket.length - 1);#}
+        {#$(".action-addBasket").click(function() {#}
+            {#console.log($(this)[0].id);#}
+            {#let id = $(this)[0].id;#}
+            {#$.ajax({url: urlAddBasket+id+'?response=JSON', success: (result) => {#}
+                {#$("#basketIconNb").html('Panier '+(result));#}
+            {#}});#}
+        {#})#}
+    {#</script>#}
 {% endblock %}
