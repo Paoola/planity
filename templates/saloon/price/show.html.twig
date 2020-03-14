@@ -1,20 +1,22 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block title %}{{ price.name }}{% endblock %}
 
 {% block body %}
 
-    <div class="col-6 offset-3">
+    {#<div class="col-6 offset-3">#}
         <div class="card mt-3">
             <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.duration }}</p>
-                <p class="card-text"><small class="text-muted">{{ product.amount }}€</small></p>
+                <h5 class="card-title">{{ price.name }}</h5>
+                <p class="card-text">{{ price.duration }}</p>
+                <p class="card-text"><small class="text-muted">{{ price.amount }}€</small></p>
             </div>
             {#<img src="{{ asset('build/images/' ~ product.image ~ 'booking-success.jpg') }}" class="card-img-top" alt="{{ product.name }}">#}
+            {#Inclure calendrier ici. Si un horaire a été selectionné pour cette prestation alors je peux ajouter mon article au panier#}
 
-            <a href="{{ path('product', {'id': product.id}) }}?addCart=true" class="btn btn-primary">Ajouter au panier</a>
+            <a href="{{ path('product', {'id': price.id}) }}?addCart=true" class="btn btn-primary">Ajouter au panier</a>
         </div>
-    </div>
+    {#</div>#}
 
 {% endblock %}
+{#Ici faire la fonction js pour que quand au click l'user choisit un horaire le tableau se referme et on affiche la date + horaire choisi pour cette préstation#}

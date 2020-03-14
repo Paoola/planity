@@ -141,7 +141,7 @@ class SaloonController extends AbstractController
     }
 
     /**
-	 * Manager un salon
+	 * Manager les rendez vous prévus pour un salon
      *
      * @Route("/saloon/manage/{saloon}", name="saloon_manage")
      */

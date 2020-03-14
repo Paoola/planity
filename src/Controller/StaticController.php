@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Slot;
+use App\Form\SlotType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Saloon;
@@ -24,4 +27,5 @@ class StaticController extends AbstractController
             'saloons' => $saloons
         ));
     }
+
 }

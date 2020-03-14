@@ -52,9 +52,9 @@ class BookingController extends AbstractController
     }
 
     /**
-     * @Route("coiffeur/reservation/{slot_ts}/{price}/{worker}", name="saloon_public_booking_form")
+     * @Route("coiffeur/reservation/{slot_ts}/{price}/{worker}/{intent}", name="saloon_public_booking_form")
      */
-    public function booking(Request $request, $slot_ts, Price $price, User $worker, Mailer $mailer, Sms $sms)
+    public function booking(Request $request, $slot_ts, Price $price, User $worker, $intent, Mailer $mailer, Sms $sms)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $slot = new Slot();
@@ -82,7 +82,7 @@ class BookingController extends AbstractController
 
                 \Stripe\Stripe::setApiKey(getenv('SK_STRIPE'));
                 $charge = \Stripe\Charge::create([
-                    'amount' => $price->getAmount() * 100,
+                    'amount' => $intent,
                     'currency' => 'eur',
                     'description' => 'Réservation - ' . $saloon->getName(),
                     'source' => $request->request->get('stripeToken'),
@@ -172,14 +172,15 @@ class BookingController extends AbstractController
         ));
     }
 
-    public function getSlots(Price $price, User $worker, $timestamp, ManageSlot $slot, $auto, $test = 0)
+    public function getSlots($intent, Price $price, User $worker, $timestamp, ManageSlot $slot, $auto)
     {
         $error = null;
 
-        //$day = new \DateTime($timestamp);
         $day = \DateTime::createFromFormat('U', $timestamp);
 
         $em = $this->getDoctrine()->getManager();
+        $priceSlots =  $em->getRepository(Price::class)->findAll();
+
         $vacationSaloon = $em->getRepository(Vacation::class)->findOneBySaloon($price->getSaloon());
         $vacationWorker = $em->getRepository(Vacation::class)->findOneByWorker($worker);
         if (null !== $vacationSaloon) {
@@ -202,10 +203,13 @@ class BookingController extends AbstractController
             }
         }
         // Récupération des slots disponibles
+
         $slots = $slot->freeTime($worker, $day, $price->getDuration() * 60);
 
         return $this->render('booking/slots.html.twig', array(
             'slots' => $slots,
+            'priceSlots' => $priceSlots,
+            'intent' => $intent,
             'price' => $price,
             'worker' => $worker,
             'day' => $day,

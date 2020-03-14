@@ -25,6 +25,7 @@ class SlotController extends AbstractController
     public function index(Saloon $saloon)
     {
         $entityManager = $this->getDoctrine()->getManager();
+        //ici récupérer toutes les réservations pour chaque price
         $nextSlots = $entityManager->getRepository(Slot::class)->findByNextSaloon($saloon->getId(), new \Datetime('now'));
 
         return $this->render('saloon/slot/index.html.twig', array(

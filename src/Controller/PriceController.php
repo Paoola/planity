@@ -28,21 +28,21 @@ class PriceController extends AbstractController
     /**
      * @Route("/price/{id}", name="product")
      */
-    public function show(Price $product, Request $request)
+    public function show(Price $price, Request $request)
     {
         $session = new Session();
 
         if ($request->query->get('addCart')) {
-            $productId = $product->getId();
+            $priceId = $price->getId();
             $cart = ($session->get('cart') != null) ? $session->get('cart') : [];
-            $cart[] = $productId;
+            $cart[] = $priceId;
             $session->set('cart', $cart);
 
-            return $this->redirectToRoute('product', array('id' => $productId));
+            return $this->redirectToRoute('product', array('id' => $priceId));
         }
 
         return $this->render('saloon/price/show.html.twig', array(
-            'product' => $product
+            'price' => $price
         ));
     }
     /**

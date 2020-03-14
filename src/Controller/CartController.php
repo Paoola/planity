@@ -50,8 +50,14 @@ class CartController extends AbstractController
             return $this->redirectToRoute('saloon_public_booking', array('price' => 4));
         }
 
+        $saloon = $products && count($products) && $products[0] instanceof Price && $products[0]->getSaloon() ? $products[0]->getSaloon(): null;
+
+        $price =  $products[0];
+
         return $this->render('cart/index.html.twig', array(
+            'saloon' => $saloon,
             'products' => $products,
+            'price' => $price,
             'form' => $form->createView(),
             'intent' => $intent
         ));
