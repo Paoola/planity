@@ -5,21 +5,45 @@
 
 {% block body %}
 
-    <div class="image"></div>
+    {#<div class="image"></div>#}
 
-    <div class="row">
-        {% for saloon in saloons %}
-            <div class="col-sm-12 col-md-4">
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ saloon.name }}</h5>
-                        <p class="card-text">{{ saloon.location }}</p>
-                        <a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn btn-primary">Rendez-vous</a>
-                    </div>
-                </div>
+<!-- Landing Area -->
+    {#<main>#}
+
+<body>
+{#<main>#}
+    <!-- Landing Area -->
+{% for saloon in saloons %}
+
+    <div id="landing">
+        <div id="landing-text">
+            <div id="landing-text-inner">
+                <h1>LANA BEAUTY</h1>
+                <h2>Beautiful natural Nails</h2>
+                <a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn" id="view-work">
+                    Réserver un soin
+                </a>
             </div>
+        </div>
+        <div id="landing-image"></div>
         {% endfor %}
-    </div><br><br>
+
+    </div>
+    {#</main>#}
+</body>
+    {#<div class="row">#}
+        {#{% for saloon in saloons %}#}
+            {#<div class="col-sm-12 col-md-4">#}
+                {#<div class="card my-3">#}
+                    {#<div class="card-body">#}
+                        {#<h5 class="card-title">{{ saloon.name }}</h5>#}
+                        {#<p class="card-text">{{ saloon.location }}</p>#}
+                        {#<a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn btn-primary">Réserver ma Manicure</a>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#{% endfor %}#}
+    {#</div><br><br>#}
 
 {% endblock %}
 

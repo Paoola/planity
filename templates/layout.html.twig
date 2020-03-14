@@ -28,23 +28,23 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <p>
-                <a class="nav-home" href>COIFFEUR</a> &nbsp;
-                <a class="nav-home" href>INSTITUT DE BEAUTÉ</a> &nbsp;
-                <a class="nav-home" href>BARBIER</a> &nbsp;
+                {#<a class="nav-home" href>LANA BEAUTY</a> &nbsp;#}
+                <a class="nav-home" href>TOUS NOS SOINS</a> &nbsp;
                 <a class="nav-home" href>MANUCURE ET PÉDICURE</a> &nbsp;
+                <a class="nav-home" href>MAQUILLAGE</a> &nbsp;
                 <a class="nav-home" href>CONTACT</a> &nbsp;
             </p>
             <div class="clearfix">
 
-            <button type="button" class="btn btn-outline-dark">
-                <a class="nav-home" href>Devenir Partenaire</a>
-            </button>
-            <button type="button" class="btn btn-dark">
-                <a class="nav-home" href>MON COMPTE</a>
-            </button>
-                <button>
-                    <a class="text-white" href="{{ path('cart') }}">Panier</a>
-                </button>
+            {#<button type="button" class="btn btn-outline-dark">#}
+                {#<a class="nav-home" href>Devenir Partenaire</a>#}
+            {#</button>#}
+            {#<button type="button" class="btn btn-dark">#}
+                {#<a class="nav-home" href>MON COMPTE</a>#}
+            {#</button>#}
+
+                {#<i class="fas fa-shopping-cart" href="{{ path('cart') }}"></i>#}
+                    <a class="text-black-50" href="{{ path('cart') }}">Panier</a>
             </div>
         </div>
     </nav>
