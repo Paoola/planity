@@ -28,8 +28,11 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <p>
+            <div class="logo">
+                Lana-Beauty
+            </div>
                 {#<a class="nav-home" href>LANA BEAUTY</a> &nbsp;#}
-                <a class="nav-home" href>TOUS NOS SOINS</a> &nbsp;
+                <a href="{{ path('saloon_public', {'saloon': 'lana-beauty'}) }}" class="nav-home">TOUS NOS SOINS</a> &nbsp;
                 <a class="nav-home" href>MANUCURE ET PÉDICURE</a> &nbsp;
                 <a class="nav-home" href>MAQUILLAGE</a> &nbsp;
                 <a class="nav-home" href>CONTACT</a> &nbsp;
@@ -44,7 +47,9 @@
             {#</button>#}
 
                 {#<i class="fas fa-shopping-cart" href="{{ path('cart') }}"></i>#}
-                    <a class="text-black-50" href="{{ path('cart') }}">Panier</a>
+                <i class="fa fa-user" aria-hidden="true"></i>
+
+                <a class="text-black-50" href="{{ path('cart') }}">Panier</a>
             </div>
         </div>
     </nav>

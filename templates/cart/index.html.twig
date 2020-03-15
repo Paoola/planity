@@ -3,9 +3,7 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-    {#<main role="main">#}
         {% include "partials/products.html.twig" %}
 
         {% include "booking/index.html.twig" with {'saloon': saloon, 'intent': intent } %}
-    {#</main>#}
 {% endblock %}

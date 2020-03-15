@@ -5,51 +5,36 @@
 
 {% block body %}
 
-    {#<div class="image"></div>#}
-
-<!-- Landing Area -->
-    {#<main>#}
-
-<body>
-{#<main>#}
+    <body>
     <!-- Landing Area -->
-{% for saloon in saloons %}
+    {% for saloon in saloons %}
 
     <div id="landing">
         <div id="landing-text">
             <div id="landing-text-inner">
-                <h1>LANA BEAUTY</h1>
-                <h2>Beautiful natural Nails</h2>
+                <h1>Réserver votre soin beauté en 3 étapes</h1>
+                <br>
+                <p>
+                    Choisissez un soin <strong>beauté</strong>.<br>
+                    Trouver un <strong>créneau</strong> disponible.<br>
+                    Payer en ligne <strong>ou lors du rendez-vous</strong>.
+                </p>
                 <a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn" id="view-work">
-                    Réserver un soin
+                    Prendre RDV
                 </a>
             </div>
         </div>
         <div id="landing-image"></div>
         {% endfor %}
-
     </div>
-    {#</main>#}
-</body>
-    {#<div class="row">#}
-        {#{% for saloon in saloons %}#}
-            {#<div class="col-sm-12 col-md-4">#}
-                {#<div class="card my-3">#}
-                    {#<div class="card-body">#}
-                        {#<h5 class="card-title">{{ saloon.name }}</h5>#}
-                        {#<p class="card-text">{{ saloon.location }}</p>#}
-                        {#<a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn btn-primary">Réserver ma Manicure</a>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-        {#{% endfor %}#}
-    {#</div><br><br>#}
+    </body>
 
 {% endblock %}
 
 
 {% block scripts %}
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&libraries=places"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_key }}&libraries=places"></script>
     <script src="{{ asset('build/location.js') }}"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -57,7 +42,7 @@
     <script src="http://www.jqueryscript.net/demo/jQuery-Plugin-For-Water-Ripple-Animation-ripples/js/jquery.ripples.js">
     </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.image').ripples('show');
         });
     </script>
