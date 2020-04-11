@@ -1,105 +1,167 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}{{ price.saloon.name }}{% endblock %}
+{% block title %}
+    {{ price.saloon.name }}
+{% endblock %}
 
 {% block body %}
     {% set date = null %}
-    <div class="vertical-spacer"></div>
+    {% set form = 'saloon_public_booking_form' %}
 
-    <div class="container">
-        <div class="row text-center">
-            <div class="col">
-                <h1 class="salon-title">{{ price.saloon.name }}</h1>
-                <span>{{ price.saloon.location }}</span><br><br>
-                <span>1. Prestation sélectionnée</span><br>
-                <h5 class="card-title my-1">{{ price.name }}</h5>
-                <p class="card-text my-1">{{ price.duration }}min</p>
-                <p class="card-text my-1">{{ price.amount }}€</p>
+    <div class="prestationSlotsContainer">
+        {# <div class="vertical-spacer"></div> #}
+        <div class="prestationText">Prestation choisie</div>
+        <div class="table table-light">
+            <div class="selectedPrestation">
+                <div class="prestationRow">
+                    <div class="prestationName">{{ price.name }}</div>
+                    <div class="css-1maandq text-right prestationDuration">
+                        {{ price.duration }}min
+                    </div>
+                    <div class="align-top prestationAmount">{{ price.amount }}€</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="vertical-spacer"></div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <table class="table table-bordered table-responsive-sm table-dark">
-                    <thead>
-                    <tr>
-                        {% set today = "now" %}
-                        {% for j in 1..7 %}
-                            {% if today|date('N') == 0 %}
-                                {% set day = 'dim.' %}
-                            {% elseif  today|date('N') == 1 %}
-                                {% set day = 'lun.' %}
-                            {% elseif  today|date('N') == 2 %}
-                                {% set day = 'mar.' %}
-                            {% elseif  today|date('N') == 3 %}
-                                {% set day = 'mer.' %}
-                            {% elseif  today|date('N') == 4 %}
-                                {% set day = 'jeu.' %}
-                            {% elseif  today|date('N') == 5 %}
-                                {% set day = 'ven.' %}
-                            {% elseif  today|date('N') == 6 %}
-                                {% set day = 'sam.' %}
-                            {% elseif  today|date('N') == 7 %}
-                                {% set day = 'dim.' %}
-                            {% endif %}
-                            {% if today|date('m') == 1 %}
-                                {% set month = 'Janvier' %}
-                            {% elseif  today|date('m') == 2 %}
-                                {% set month = 'Février' %}
-                            {% elseif  today|date('m') == 3 %}
-                                {% set month = 'Mars' %}
-                            {% elseif  today|date('m') == 4 %}
-                                {% set month = 'Avril' %}
-                            {% elseif  today|date('m') == 5 %}
-                                {% set month = 'Mai' %}
-                            {% elseif  today|date('m') == 6 %}
-                                {% set month = 'Juin' %}
-                            {% elseif  today|date('m') == 7 %}
-                                {% set month = 'Juillet' %}
-                            {% elseif  today|date('m') == 8 %}
-                                {% set month = 'Août' %}
-                            {% elseif  today|date('m') == 9 %}
-                                {% set month = 'Septembre' %}
-                            {% elseif  today|date('m') == 10 %}
-                                {% set month = 'Octobre' %}
-                            {% elseif  today|date('m') == 11 %}
-                                {% set month = 'Novembre' %}
-                            {% elseif  today|date('m') == 12 %}
-                                {% set month = 'Décembre' %}
-                            {% endif %}
-                            <th>
-                                {{ day }} <br>
-                                {{ today|date('d') }} {{ month }}
-                            </th>
-                            {% set today = today|date_modify("+1 day") %}
-                        {% endfor %}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        {% for worker in price.saloon.workers %}
-                            {% set d = "now" %}
-                            {% for j in 0..6 %}
-                                <td class="text-dark">
-                                    {{ render(controller(
-                                        'App\\Controller\\BookingController::getSlots',
-                                        {'price': price.id, 'timestamp': d|date('U'), 'worker' : worker, 'auto': false, 'test':j}
-                                    )) }}
-                                </td>
-                                {% set d = d|date_modify("+1 day") %}
-                            {% endfor %}
-                        {% endfor %}
-                    </tr>
-                    </tbody>
-                </table>
+        <div class='chosenHourContainer chosenHourHidden'>
+            <div class='prestationText'>Date et heure choisies</div>
+            <div class='table table-light chosenHourRow'>
+                <div class='chosenHour'></div>
+                <div class='changeHour'>Modifier</div>
             </div>
         </div>
+
+        {# <div class="table-responsive"> #}
+        <div class="prestationText prestationTextSlots">Date et heures disponibles</div>
+        <table class="table slotsTable">
+            <thead>
+            <tr>
+                {% set today = "now" %}
+                {% for j in 1..7 %}
+                    {% if today|date('N') == 0 %}
+                        {% set day = 'dim.' %}
+                    {% elseif  today|date('N') == 1 %}
+                        {% set day = 'lun.' %}
+                    {% elseif  today|date('N') == 2 %}
+                        {% set day = 'mar.' %}
+                    {% elseif  today|date('N') == 3 %}
+                        {% set day = 'mer.' %}
+                    {% elseif  today|date('N') == 4 %}
+                        {% set day = 'jeu.' %}
+                    {% elseif  today|date('N') == 5 %}
+                        {% set day = 'ven.' %}
+                    {% elseif  today|date('N') == 6 %}
+                        {% set day = 'sam.' %}
+                    {% elseif  today|date('N') == 7 %}
+                        {% set day = 'dim.' %}
+                    {% endif %}
+                    {% if today|date('m') == 1 %}
+                        {% set month = 'janv.' %}
+                    {% elseif  today|date('m') == 2 %}
+                        {% set month = 'févr.' %}
+                    {% elseif  today|date('m') == 3 %}
+                        {% set month = 'mars' %}
+                    {% elseif  today|date('m') == 4 %}
+                        {% set month = 'avril' %}
+                    {% elseif  today|date('m') == 5 %}
+                        {% set month = 'mai' %}
+                    {% elseif  today|date('m') == 6 %}
+                        {% set month = 'juin' %}
+                    {% elseif  today|date('m') == 7 %}
+                        {% set month = 'juil.' %}
+                    {% elseif  today|date('m') == 8 %}
+                        {% set month = 'août' %}
+                    {% elseif  today|date('m') == 9 %}
+                        {% set month = 'sept.' %}
+                    {% elseif  today|date('m') == 10 %}
+                        {% set month = 'octo.' %}
+                    {% elseif  today|date('m') == 11 %}
+                        {% set month = 'nove.' %}
+                    {% elseif  today|date('m') == 12 %}
+                        {% set month = 'décem.' %}
+                    {% endif %}
+                    <th>
+                        {{ day }}
+                        <br>
+                        {{ today|date('d') }}
+                        {{ month }}
+                    </th>
+                    {% set today = today|date_modify("+1 day") %}
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for worker in price.saloon.workers %}
+                    {% set d = "now" %}
+                    {% for j in 0..6 %}
+                        <td class="text-dark">
+                            <div class="slotsContainer">
+                                {% set slotAvailable = get_available_slots(price, worker, d|date('U')) %}
+
+                                {% for slotAvailable in slotAvailable %}
+                                    {% set minute = slotAvailable|date('i') %}
+
+                                    {% if minute is divisible by(60) %}
+
+                                        {% if slotAvailable|date('d/m/Y') == "now"|date('d/m/Y') %}
+
+                                            {% if slotAvailable|date('H:i') > "now"|date('H:i') %}
+                                                {% set slotData =  slotAvailable.timestamp |json_encode() %}
+                                                <div class="text-dark slotButton"
+                                                   {# href="{{ path(form, {'price': price.id, 'slot_ts': slotAvailable.timestamp, 'worker': worker.id}) }}" #}
+                                                   data-date={{slotAvailable.timestamp}}>
+                                                        {{ slotAvailable|date('H:i') }}
+                                                </div>
+                                            {% endif %}
+
+                                        {% else %}
+                                            <div class="text-dark slotButton"
+                                               {# href="{{ path(form, {'price': price.id, 'slot_ts': slotAvailable.timestamp, 'worker': worker.id }) }}" #}
+                                               data-date={{slotAvailable.timestamp}}
+                                               >
+                                                    {{ slotAvailable|date('H:i') }}
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </td>
+                        {% set d = d|date_modify("+1 day") %}
+                    {% endfor %}
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
     </div>
-
-    <div class="vertical-spacer"></div>
-
 {% endblock %}
 
+
+
+{% block javascripts %}
+    <script type="text/javascript">
+        const date = document.querySelector
+        const onClick = (time) => (event) => {
+            const slotsTable = document.getElementsByClassName('slotsTable')[0];
+            const chosenHour = document.querySelector('.chosenHourHidden').classList.remove('chosenHourHidden');
+            slotsTable.classList.add('slotsTableHidden');
+            document.querySelector('.prestationTextSlots').classList.add('slotsTableHidden');
+            const chosenSlot = new Date(time).toLocaleString('fr-FR', { timeZone: 'UTC', weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})
+            document.querySelector('.chosenHour').innerHTML = chosenSlot
+        }
+        const onModifyClick = () => {
+            const slotsTable = document.getElementsByClassName('slotsTable')[0];
+            const chosenHour = document.querySelector('.chosenHourContainer').classList.add('chosenHourHidden');
+            slotsTable.classList.remove('slotsTableHidden');
+            document.querySelector('.prestationTextSlots').classList.remove('slotsTableHidden');
+        }
+        let event;
+        const slots = document.querySelectorAll('.slotButton');
+        slots.forEach(slot => {
+            const time = Number(slot.getAttribute('data-date')) * 1000;
+            slot.addEventListener('click', onClick(time))
+        })
+        const modifyButton = document.querySelector('.changeHour');
+        modifyButton.addEventListener('click', onModifyClick);
+    </script>
+{% endblock %}

@@ -4,29 +4,273 @@
 {% block description %}Réservez votre manucure rendez-vous en ligne.{% endblock %}
 
 {% block body %}
-
     <body>
-    <!-- Landing Area -->
-    {% for saloon in saloons %}
-
-    <div id="landing">
-        <div id="landing-text">
-            <div id="landing-text-inner">
-                <h1>Réserver votre soin beauté en 3 étapes</h1>
-                <br>
-                <p>
-                    Choisissez un soin <strong>beauté</strong>.<br>
-                    Trouver un <strong>créneau</strong> disponible.<br>
-                    Payer en ligne <strong>ou lors du rendez-vous</strong>.
-                </p>
-                <a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn" id="view-work">
-                    Prendre RDV
+    <main class="homepageContainer">
+        <!-- First Section. Header -->
+        <section class="section-1">
+            <div class="row">
+                <div class="logo col-5">Lana Beauty</div>
+            </div>
+            <aside class="row">
+                <h5><span>Perfect</span>&ensp; <a href="#">takepapp.com</a></h5>
+                {#<h1 class="col-12">Picture perfect</h1>#}
+            </aside>
+            <div class="row">
+                <div class="col-5">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- Second Section. Idea -->
+        <section class="section-2">
+            <header class="row">
+                <h2 class="col-12">Start something new</h2>
+            </header>
+            <div class="row">
+                <div class="col-6">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur.
+                    </p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodua. Ut enim ad minim veniam, quis nostrud.
+                    </p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- Third Section. Gallery -->
+        <section class="section-3">
+            <div class="wrapper">
+                <div id="gallery">
+                    <div class="first-img gal-img">
+                        <h3>Design quality</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore.
+                        </p>
+                        <a href="">
+                            <p>Find Out more &ensp;&rarr;</p>
+                        </a>
+                    </div>
+                    <div class="second-img gal-img">
+                        <h3>Built to last</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore.
+                        </p>
+                        <a href="">
+                            <p>Find Out more &ensp;&rarr;</p>
+                        </a>
+                    </div>
+                    <div class="third-img gal-img">
+                        <h3>Our clients</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt.
+                        </p>
+                        <a href="">
+                            <p>Get insights &ensp;&rarr;</p>
+                        </a>
+                        <span>&#10085;</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Fourth Section. Description -->
+        <section class="section-4">
+            <aside class="row">
+                <h5><a href="#">takepapp.com</a></h5>
+                <h2 class="col-12">A look at the details</h2>
+            </aside>
+            <div class="row">
+                <div class="col-3">
+                    <h4>Web based</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                </div>
+                <div class="col-3">
+                    <h4>Performance</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                </div>
+                <div class="col-3">
+                    <h4>Cultural</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                </div>
+                <div class="col-3">
+                    <h4>Sustainability</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- Fifth Section. Options Link -->
+        <section class="section-5">
+            <header class="row">
+                <h2 class="col-12">More power<br>behind every pixel</h2>
+            </header>
+            <div class="row">
+                <div class="col-5">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <a href="#">
+                    <p class="col-2">See the options &ensp;&rarr;</p>
                 </a>
             </div>
+        </section>
+        <!-- Sixth Section. Reasons -->
+        <section class="section-6">
+            <aside class="row">
+                <h5><a href="#">takepapp.com</a></h5>
+                <h2 class="col-12">Reasons to get onboard</h2>
+            </aside>
+            <div class="row">
+                <div class="col-4">
+                    <h4>Web based</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                </div>
+                <div class="col-4">
+                    <h4>Team login</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                </div>
+                <div class="col-4">
+                    <h4>Great support</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- Seventh Section. Plans -->
+        <section class="section-7">
+            <div class="row">
+                <h5><a href="#">takepapp.com</a></h5>
+                <div class="col-6">
+                    <button class="status">Legacy</button>
+                    <div class="content">
+                        <h3>Go it Solo</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation
+                        </p>
+                    </div>
+                    <button class="buy-now">Buy Now $9</button>
+                </div>
+                <div class="col-6">
+                    <button class="status">Most Popular</button>
+                    <div class="content">
+                        <h3>Team Plan</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris
+                        </p>
+                    </div>
+                    <button class="buy-now">Buy Now $18</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Last Section. Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-6">
+                <h4>Get in touch</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+            </div>
+            <div class="col-6">
+                <h4>Stay in touch</h4>
+                <form action="#" method="post">
+                    <label for="input_email">Input your email for subscribing</label>
+                    <input id="input_email" type="email" name="email" required>
+                    <input type="submit" value=" ">
+                    <div class="tick"><span></span></div>
+                    <!-- Submit Button Style with Unicode -->
+                    <!-- <span>&not;</span> -->
+                </form>
+                <p>We don't send spam. Actually, who are we kidding, we'll spam
+                    <br>the shit out of your inbox!
+                </p>
+            </div>
         </div>
-        <div id="landing-image"></div>
-        {% endfor %}
-    </div>
+        <div class="row">
+            <div class="col-2">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="">Tour</a></li>
+                    <li><a href="">Customers</a></li>
+                    <li><a href="">Pricing and Plans</a></li>
+                    <li><a href="">New Features</a></li>
+                    <li><a href="">Education</a></li>
+                </ul>
+            </div>
+            <div class="col-2">
+                <h4>Features</h4>
+                <ul>
+                    <li><a href="">Tour</a></li>
+                    <li><a href="">Customers</a></li>
+                    <li><a href="">Pricing and Plans</a></li>
+                    <li><a href="">New Features</a></li>
+                    <li><a href="">Education</a></li>
+                </ul>
+            </div>
+            <div class="col-2">
+                <h4>How To's</h4>
+                <ul>
+                    <li><a href="">Tour</a></li>
+                    <li><a href="">Customers</a></li>
+                    <li><a href="">Pricing and Plans</a></li>
+                    <li><a href="">New Features</a></li>
+                    <li><a href="">Education</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
     </body>
 
 {% endblock %}
@@ -39,11 +283,4 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="http://www.jqueryscript.net/demo/jQuery-Plugin-For-Water-Ripple-Animation-ripples/js/jquery.ripples.js">
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('.image').ripples('show');
-        });
-    </script>
 {% endblock %}
