@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PriceRepository")
+ * @ORM\Table(name="price")
  */
 class Price
 {
@@ -38,6 +39,11 @@ class Price
      * @ORM\JoinColumn(nullable=false)
      */
     private $saloon;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="prices")
@@ -183,6 +189,19 @@ class Price
                 $slot->setPrice(null);
             }
         }
+
+        return $this;
+    }
+
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
