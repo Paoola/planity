@@ -5,29 +5,16 @@
 
 {% block body %}
 
-    <body>
-    <!-- Landing Area -->
     {% for saloon in saloons %}
 
-    <div id="landing">
-        <div id="landing-text">
-            <div id="landing-text-inner">
-                <h1>Réserver votre soin beauté en 3 étapes</h1>
-                <br>
-                <p>
-                    Choisissez un soin <strong>beauté</strong>.<br>
-                    Trouver un <strong>créneau</strong> disponible.<br>
-                    Payer en ligne <strong>ou lors du rendez-vous</strong>.
-                </p>
-                <a href="{{ path('saloon_public', {'saloon': saloon.slug}) }}" class="btn" id="view-work">
-                    Prendre RDV
-                </a>
+        <div class="banner">
+            <div class="banner-content">
+                <div class="lead">
+                    <h1>Réserver ma Manucure</h1>
+                </div>
             </div>
         </div>
-        <div id="landing-image"></div>
-        {% endfor %}
-    </div>
-    </body>
+    {% endfor %}
 
 {% endblock %}
 
@@ -39,11 +26,4 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="http://www.jqueryscript.net/demo/jQuery-Plugin-For-Water-Ripple-Animation-ripples/js/jquery.ripples.js">
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('.image').ripples('show');
-        });
-    </script>
 {% endblock %}

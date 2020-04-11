@@ -521,6 +521,9 @@
             "ref": "ddb2e0a77773b7fd75d8d649545f174e664500ab"
         }
     },
+    "twig/intl-extra": {
+        "version": "v3.0.3"
+    },
     "twig/twig": {
         "version": "v2.5.0"
     },

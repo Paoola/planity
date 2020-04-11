@@ -5,41 +5,53 @@
 
 {% block body %}
 
-<div class="row">
+    <div class="vertical-spacer"></div>
+    <div class="container">
+        <div class="row">
 
-	{% include 'saloon/menu.html.twig' %}
+            {% include 'saloon/menu.html.twig' %}
 
-	<div class="col-lg-10 col-md-12">
-		<div class="row mt-2">
-			<div class="col-6">
-				<h1>Nos soins</h1>
-			</div>
-			
-			<div class="col-6">
-				<a class="btn btn-primary float-right my-2" href="{{ path('saloon_manage_price_new', {'saloon': saloon.id}) }}">Ajouter un tarif</a>
-			</div>
-		</div>
+            <div class="col-lg-10 col-md-12">
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <h3>
+                            <strong>Lana Beauty</strong>
+                            <small class="text-muted">Private sale beauty</small>
+                        </h3>
+                    </div>
 
+                    <div class="col-6">
+                        <a class="btn btn-dark float-right my-2"
+                           href="{{ path('saloon_manage_price_new', {'saloon': saloon.id}) }}">Ajouter un tarif</a>
+                    </div>
+                </div>
 
-		<table class="table text-center">
-			<tr>
-				<th><b>Soins</b></th>
-				<th><b>Durée</b></th>
-				<th><b>Prix</b></th>
-				<th><b>Edit</b></th>
-				<th><b>Supprimer</b></th>
-			</tr>
-			{% for price in saloon.prices %}
-				<tr>	
-					<td>{{ price.name }}</td>
-					<td>{{ price.duration }} min</td>
-					<td>{{ price.amount }}€</td>
-					<td><a href="{{ path('saloon_manage_price_edit', {'saloon': saloon.id, 'price': price.id}) }}">Modifier</a></td>
-					<td><a href="{{ path('delete_price', {'saloon': saloon.id, 'price':price.id}) }}">Supprimer</a></td>
-				</tr>
-			{% endfor %}
-		</table>
-	</div>
-</div>
+                <div class="col-12">
 
+                <table class="table text-center">
+                    <tr>
+                        <th><b>Soins</b></th>
+                        <th><b>Durée</b></th>
+                        <th><b>Prix</b></th>
+                        <th><b>Edit</b></th>
+                        <th><b>Supprimer</b></th>
+                    </tr>
+                    {% for price in saloon.prices %}
+                        <tr>
+                            <td>{{ price.name }}</td>
+                            <td>{{ price.duration }} min</td>
+                            <td>{{ price.amount }}€</td>
+                            <td>
+                                <a class="text-admin" href="{{ path('saloon_manage_price_edit', {'saloon': saloon.id, 'price': price.id}) }}">Modifier</a>
+                            </td>
+                            <td>
+                                <a class="text-admin" href="{{ path('delete_price', {'saloon': saloon.id, 'price':price.id}) }}">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
