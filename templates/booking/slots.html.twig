@@ -1,4 +1,4 @@
-{% if auto %}
+ {% if auto %}
     {% set changeDate = "{{ path('saloon_manage_slot_new_auto', {'saloon': saloon.id}) }}" %}
     {% set form = 'saloon_private_booking_form' %}
 {% else %}
@@ -9,7 +9,7 @@
 {#<div class="col-12">#}
     {#<h2 class="text-center">{{ day|date('d/m/Y') }}</h2>#}
 {#</div>#}
-<div class="container">
+<div class="slotsContainer">
     {% for slot in slots %}
         {% set minute = slot|date('i') %}
 
@@ -18,17 +18,17 @@
             {% if slot|date('d/m/Y') == "now"|date('d/m/Y') %}
 
                 {% if slot|date('H:i') > "now"|date('H:i') %}
-                    <div class="col-sm-6 col-md-3 my-2">
-                        <a class="text-light"
+                    {# <div class="col-sm-6 col-md-3 my-2"> #}
+                        <a class="text-dark"
                            href="{{ path(form, {'price': price.id, 'slot_ts': slot.timestamp, 'worker': worker.id}) }}">{{ slot|date('H:i') }}</a>
-                    </div>
+                    {# </div> #}
                 {% endif %}
 
             {% else %}
-                <div class="col-sm-6 col-md-3 my-2">
-                    <a class="text-light"
+                {# <div class="col-sm-6 col-md-3 my-2"> #}
+                    <a class="text-dark"
                        href="{{ path(form, {'price': price.id, 'slot_ts': slot.timestamp, 'worker': worker.id }) }}">{{ slot|date('H:i') }}</a>
-                </div>
+                {# </div> #}
             {% endif %}
         {% endif %}
     {% endfor %}

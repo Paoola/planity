@@ -4,27 +4,28 @@
 {% block title %}Ajouter un tarif | {{ parent() }}{% endblock %}
 
 {% block body %}
+    <br>
+    <br>
+    <br>
+    <div class="row">
 
-<div class="row">
+        {% include 'saloon/menu.html.twig' %}
 
-	{% include 'saloon/menu.html.twig' %}
+        <div class="col-lg-8 col-md-10 col-sm-12 offset-md-1 offset-lg-2">
+            <br>
+            <h3>
+                <strong>Lana Beauty</strong>
+                <small class="text-muted">Ajouter une nouvelle préstation</small>
+            </h3>
+            <div class="row justify-content-center">
 
-	<div class="col-lg-8 col-md-10 col-sm-12 offset-md-1 offset-lg-2">
+                <div class="col-12 col-sm-12 col-lg-6">
 
-		<h1 class="text-center my-3">Ajouter un tarif</h1>
-
-		<div class="row justify-content-center">
-			
-			<div class="col-12 col-sm-12 col-lg-6">
-				
-				{{ form(form) }}
-			
-			</div>
-		
-		</div>
-	
-	</div>
-
-</div>
+                    {{ form(form) }}
+                </div>
+            </div>
+            <div class="vertical-spacer"></div>
+        </div>
+    </div>
 
 {% endblock %}

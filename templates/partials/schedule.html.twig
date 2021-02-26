@@ -1,4 +1,5 @@
-<table class="table table-striped text-center">
+<div class="container">
+<table class="table table-light text-center bg-white">
 	<tr>
 		<td>Lundi</td>
 		<td>{% if not saloon.schedules.1.dayOff %}{{ saloon.schedules.1.start|date('H:i') }}{% endif %}</td>
@@ -35,3 +36,17 @@
 		<td>{% if saloon.schedules.0.dayOff %}Fermé{% else %}{{ saloon.schedules.0.end|date('H:i') }}{% endif %}</td>
 	</tr>
 </table>
+</div>
+{# {% set arrayDays = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'] %}
+<div class="openingTable">
+{% for i in 0..6 %}
+	<div class='openingRow'>
+		{% if saloon.schedules[i].dayOff %}
+			<div class='openingClosed'>Fermé</div>
+		{% else %}
+			<div class='openingDays'>{{ arrayDays[i]}}</div>
+			<div class='openingHours'><span class="openingOpenHour">{{ saloon.schedules[i].start|date('H:i') }}</span> - <span class="openingCloseHour">{{ saloon.schedules[i].end|date('H:i') }}</span></div>
+		{% endif %}
+	</div>
+{% endfor %}
+<div> #}

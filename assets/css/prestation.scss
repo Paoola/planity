@@ -1,0 +1,112 @@
+.chosenHourContainer {
+	max-width: 700px;
+	width: 100%;
+  text-align: center;
+}
+
+.chosenHourRow {
+  display: flex;
+  padding: 12px 48px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.changeHour {
+	text-decoration-line: underline;
+  & :hover {
+    cursor: pointer
+  }
+}
+
+.prestationTitle {
+	font-size: 14px;
+	margin-left: 8px;
+}
+
+.prestationSlotsContainer {
+	margin-top: 150px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	& .table {
+		margin-bottom: 30px;
+	}
+}
+
+.prestationContainer {
+	padding: 0 8px;
+	border-bottom: 1px solid #e9e9e9;
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.prestationText {
+	font-size: 17px;
+	padding: 16px;
+	font-weight: 600;
+}
+
+.prestationRow {
+	display: flex;
+	justify-content: space-around;
+	padding: 12px 0;
+	align-items: center;
+}
+
+.prestationButton {
+	font-family: "Roboto", "Open Sans", sans-serif !important;
+	font-size: 14px;
+}
+
+.prestationName {
+	width: 50%;
+	text-align: left;
+}
+
+@media only screen and (max-width: 768px) {
+	.prestationRow {
+		max-height: 90px;
+		overflow: hidden;
+	}
+	.prestationName {
+		display: flex;
+		width: 25%;
+		height: 22px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.prestationButtonContainer {
+		width: 30%;
+	}
+	.prestationButton {
+		overflow: hidden;
+	}
+}
+
+.infosContainer {
+	display: flex;
+	// flex-direction: column-reverse;
+	width: 100%;
+	justify-content: space-evenly;
+	text-align: center;
+	margin: 24px 0;
+
+	h2 h4 {
+		margin-bottom: 12px;
+	}
+}
+
+.openingInfo {
+	width: 67%;
+	h4 {
+		margin-bottom: 12px;
+	}
+}
+
+.locationInfo {
+	width: 60%;
+	h4 {
+		margin-bottom: 12px;
+	}
+}

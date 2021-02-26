@@ -5,59 +5,90 @@
 {% block body %}
     {% set date = null %}
 
-    <div data-online-payment="{{ saloon.onlinePayment }}" id="js-book" class="row my-4">
-        <div class="col-lg-8 col-md-12 col-sm-12 offset-lg-2 text-center">
-            <div class="jumbotron">
-                <h2>Confirmez le rendez-vous</h2>
-                <p>
-                    Rendez-vous le <b>{{ slot.start|date('d/m/Y') }}</b> à <b>{{ slot.start|date('H:i') }}</b><br>
-                    avec <b>{{ slot.worker.firstname|capitalize }} {{ slot.worker.lastname|capitalize }}</b><br>
-                    à l'adresse <b>{{ slot.saloon.location }}</b>
-                </p>
+    <br>
 
-                <h2>Vous avez déjà utilisé Lana Beauty ?  </h2>
+    <div class="jumbotron">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                <form action="{{ path('login') }}" id="formLogin" method="post">
-                    <label for="username"></label>
-                    <input type="text" id="username" name="_username"/>
-                    <label for="password"></label>
-                    <input type="password" id="password" name="_password" />
-                    <button type="submit" id="submit">login</button>
-                </form>
-                <div id="server-results"><!-- For server results --></div>
 
-                <h2>Pour qui faites vous la réservation ? </h2>
-                {{ form_start(form, {'attr': {'id': 'payment-form'}}) }}
+        <div class="vertical-spacer"></div>
 
-                {{ form_row(form.name) }}
+        <div data-online-payment="{{ saloon.onlinePayment }}" id="js-book" class="row my-4">
+            <div class="col-lg-8 col-md-12 col-sm-12 offset-lg-2 text-center">
+                <div class="jumbotron">
+                    <div id="server-results"><!-- For server results --></div>
+                    {{ form_start(form, {'attr': {'id': 'payment-form'}}) }}
 
-                {{ form_row(form.phoneNumber) }}
+                    {{ form_row(form.name) }}
 
-                {{ form_row(form.email) }}
+                    {{ form_row(form.phoneNumber) }}
 
-                <button type="button" id="payment_active" class="payment_choose btn btn-secondary my-3 col-5">Je paye en ligne</button>
+                    {{ form_row(form.email) }}
 
-                <div class="col-12" id="or">
-                    <p class="text-center my-1">ou</p>
-                </div>
+                    <button type="button" id="payment_active" class="payment_choose btn btn-secondary my-3 col-5">Je
+                        paye en
+                        ligne
+                    </button>
 
-                <button type="button" id="payment_disable" class="payment_choose btn btn-secondary my-3 col-5">Je paye lors du rendez-vous</button>
-
-                <div class="form-group">
-                    <div class="stripe">
-                        <div id="card-element"></div>
-                        <div id="card-errors" role="alert"></div>
-                        <br>
+                    <div class="col-12" id="or">
+                        <p class="text-center my-1">ou</p>
                     </div>
+
+                    <button type="button" id="payment_disable" class="payment_choose btn btn-secondary my-3 col-5">Je
+                        paye
+                        lors du rendez-vous
+                    </button>
+
+                    <div class="form-group">
+                        <div class="stripe">
+                            <div id="card-element"></div>
+                            <div id="card-errors" role="alert"></div>
+                            <br>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Confirmer" class="btn btn-primary" id="button_confirm"/>
+
+                    {{ form_end(form) }}
+                    </p>
                 </div>
-
-                <input type="submit" value="Confirmer" class="btn btn-primary" id="button_confirm"/>
-
-                {{ form_end(form) }}
-                </p>
             </div>
         </div>
-    </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 mx-auto my-4">
+                    <div class="card card-signup z-depth-0">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Vous avez déjà utilisé Lana Beauty ?</h3>
+
+                            <form action="{{ path('login') }}" id="formLogin" method="post">
+
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="username" name="_username"
+                                           aria-describedby="emailHelp"
+                                           placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="password" name="_password"
+                                           placeholder="Mot de passe">
+                                </div>
+
+                                <div class="card-foter text-left">
+                                    <button type="submit" id="submit" class="btn btn-dark">S'identifier</button>
+                                </div>
+                                <small id="emailHelp" class="form-text text-left" href="#">Mot de passe oublié ?</small>
+                                        <input type="hidden" name="token" value="{token}">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block scripts %}
@@ -69,17 +100,17 @@
     <script src="{{ asset('build/bookingForm.js') }}"></script>
     <script type="text/javascript">
         // le js qui va écouter le submit
-        $("#formLogin").submit(function(event){
+        $("#formLogin").submit(function (event) {
             event.preventDefault(); //prevent default action
             var post_url = $(this).attr("action"); //get form action url
             var request_method = $(this).attr("method"); //get form GET/POST method
             var form_data = $(this).serialize(); //Encode form elements for submission
 
             $.ajax({
-                url : post_url,
+                url: post_url,
                 type: request_method,
-                data : form_data
-            }).done(function(response){ //
+                data: form_data
+            }).done(function (response) { //
                 location.reload(response)
             });
         });
@@ -111,7 +142,7 @@
             var card = elements.create('card', {style: style, 'hidePostalCode': true});
             card.mount('#card-element');
 
-            card.addEventListener('change', function(event) {
+            card.addEventListener('change', function (event) {
                 var displayError = document.getElementById('card-errors');
                 if (event.error) {
                     displayError.textContent = event.error.message;
@@ -122,11 +153,11 @@
 
             // Handle form submission.
             var form = document.getElementById('payment-form');
-            form.addEventListener('submit', function(event) {
+            form.addEventListener('submit', function (event) {
                 event.preventDefault();
 
                 if (document.querySelector('button.payment_choose.btn-success').id == 'payment_active') {
-                    stripe.createToken(card).then(function(result) {
+                    stripe.createToken(card).then(function (result) {
                         if (result.error) {
                             var errorElement = document.getElementById('card-errors');
                             errorElement.textContent = result.error.message;

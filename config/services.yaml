@@ -8,11 +8,12 @@ parameters:
     plan_id_stripe: plan_DRmOdDw5jkLI5c
     medium_coupon_stripe: CkbQ7UU8
     big_coupon_stripe: 3NHXutd8
-    mailgun_domain: mailgun.boocut.fr
-    # mail_mail_from: postmaster@sandbox35a4234f7d274be6b0ea2d2e80c40355.mailgun.org
-    mail_mail_from: postmaster@mailgun.boocut.fr
+    mailgun_domain: sandboxb15cfc199da7471ba07fb047079552d1.mailgun.org
+    mail_mail_from: postmaster@sandboxb15cfc199da7471ba07fb047079552d1.mailgun.org
+
     mail_name_from: Boocut
-    mailgun_api_key: key-5eb4b24a425253d6ce08974e9256d5ee
+    mailgun_api_key: 14610d4087b91ab1bf8abdc46bf71854-28d78af2-2f4edd40
+
 
 services:
     # default configuration for services in *this* file

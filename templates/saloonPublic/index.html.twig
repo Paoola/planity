@@ -3,76 +3,203 @@
 {% block title %}{{ saloon.name }} - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="album py-5 bg-light">
-        <div class="container">
-            <div class="row">
+<div class="vertical-spacer"></div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="prestationTitle">Beauté des ongles</h4>
+            <br>
+            <div class="table table-light prestationContainer">
                 {% for price in saloon.prices %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <img src="{{ asset('build/images/unsplash.jpg' ~ price.image) }}" height="300"/>
-                            <div class="card-body">
-                                <h4>{{ price.name }}</h4>
-                                <p class="card-text">{{ price.amount }}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" class="btn btn-sm btn-outline-secondary">Réserver ce soin</a>
-                                    </div>
-                                    {#<small class="text-muted">9 mins</small>#}
-                                </div>
-                            </div>
+                    <div class="prestationContainer prestationRow">
+                        <div class="prestationName">{{ price.name }}</div>
+                        <div class="css-1maandq text-right prestationDuration"> {{ price.duration }}min</div>
+                        <div class="align-top prestationAmount">{{ price.amount }}€</div>
+                        <div class="prestationButtonContainer">
+                            <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
+                                class="btn btn-outline-dark float-right prestationButton">Réserver ce soin
+                            </a>
                         </div>
                     </div>
+                    {# <div class="prestationContainer prestationRow">
+                        <div class="prestationName">{{ price.name }}</div>
+                        <div class="css-1maandq text-right prestationDuration"> {{ price.duration }}min</div>
+                        <div class="align-top prestationAmount">{{ price.amount }}€</div>
+                        <div class="prestationButtonContainer">
+                            <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
+                                class="btn btn-outline-dark float-right prestationButton">Réserver ce soin
+                            </a>
+                        </div>
+                    </div>
+                    <div class="prestationContainer prestationRow">
+                        <div class="prestationName">{{ price.name }}</div>
+                        <div class="css-1maandq text-right prestationDuration"> {{ price.duration }}min</div>
+                        <div class="align-top prestationAmount">{{ price.amount }}€</div>
+                        <div class="prestationButtonContainer">
+                            <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
+                                class="btn btn-outline-dark float-right prestationButton">Réserver ce soin
+                            </a>
+                        </div>
+                    </div>
+                    <div class="prestationContainer prestationRow">
+                        <div class="prestationName">{{ price.name }}</div>
+                        <div class="css-1maandq text-right prestationDuration"> {{ price.duration }}min</div>
+                        <div class="align-top prestationAmount">{{ price.amount }}€</div>
+                        <div class="prestationButtonContainer">
+                            <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
+                                class="btn btn-outline-dark float-right prestationButton">Réserver ce soin
+                            </a>
+                        </div>
+                    </div> #}
                 {% endfor %}
             </div>
         </div>
+        {# {% include 'booking/index.html.twig' %} #}
+
+    <div class="infosContainer">
+        {# <div class="row"> #}
+            {# <div class="col-sm-6"> #}
+            <div class="locationInfo">
+                <h4>En savoir plus sur Lana Beauty</h4>
+
+                <div id="map" style="width: 100%; height: 330px;"></div>
+                <br>
+                <i class=" fas fa-map-marker-alt css-1cjv4kp"> 266 route de Beaudinard, 13400 Aubagne</i>
+            </div>
+            {# </div> #}
+            {# <div class="col-sm-6"> #}
+            <div class="openingInfo">
+                <h4>Horaires d'ouverture</h4>
+                {% include "partials/schedule.html.twig" %}
+            </div>
+            {# </div> #}
+        {# </div> #}
     </div>
-	{#{% set today = "now"|date_modify("+1 day") %}#}
+    <div class="vertical-spacer"></div>
 
-{#<div class="row my-4">#}
-    {#<div class="col-lg-8 col-md-8 col-sm-12">#}
-        {#<div class="jumbotron">#}
-            {#<h1 class="display-4 saloon-name">{{ saloon.name }}</h1>#}
-        {#</div>#}
+    {% endblock %}
 
-        {#{% if saloon.customText is not null %}#}
-            {#<div class="jumbotron text-center p-4">#}
-                {#<p class="mb-0">{{ saloon.customText }}</p>#}
-            {#</div>#}
-        {#{% endif %}#}
+    {% block scripts %}
+        {% if saloon.isPremium %}
+        <script src="{{ asset('build/booking.js') }}"></script>
+        {% endif %}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCocsTEd2fbjERR2tEl9ilk0M_QnIajRUM&callback=initMap"
+                async defer></script>
 
-        {#<div id="choose_prices">#}
-            {#<div class="jumbotron py-5 text-center">#}
-                {#{% if saloon.bookingActive %}#}
-                    {#<h2>Choisissez votre prestation</h2>#}
-                {#{% else %}#}
-                    {#<h2>Prestations</h2>#}
-                {#{% endif %}#}
+        {% set latitude = 0 %}
+        {% set longitude = 0 %}
+        {% if saloon.latitude %}
+            {% set latitude = saloon.latitude %}
+        {% endif %}
+        {% if saloon.longitude %}
+            {% set longitude = saloon.longitude %}
+        {% endif %}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCocsTEd2fbjERR2tEl9ilk0M_QnIajRUM&callback=initMap"
+                async defer></script>
 
-                {#{% if not saloon.isPremium %}#}
-                    {#<div class="alert alert-warning" role="alert">#}
-                        {#Ce salon ne prend pas de réservations en ligne#}
-                    {#</div>#}
-                {#{% endif %}#}
+        {% set latitude = 0 %}
+        {% set longitude = 0 %}
+        {% if saloon.latitude %}
+            {% set latitude = saloon.latitude %}
+        {% endif %}
+        {% if saloon.longitude %}
+            {% set longitude = saloon.longitude %}
+        {% endif %}
+        <script>
+            var map;
+            var latitude = parseFloat('{{ latitude }}');
+            var longitude = parseFloat('{{ longitude }}');
 
-                {#<div class="row">#}
-                    {#{% for price in saloon.prices %}#}
-                        {#<div class="col-sm-12 col-md-6">#}
-                            {#<div class="card price" id="{{ price.id }}">#}
-                                {#<img src="{{ asset('build/images/unsplash.jpg' ~ price.image) }}" height="300"/>#}
-                                {#<div class="card-body">#}
-                                    {#<h5 class="card-title my-1">{{ price.name }}</h5>#}
-                                    {#<p class="card-text my-1">{{ price.duration }}min</p>#}
-                                    {#<p class="card-text my-1">{{ price.amount }}€</p>#}
-                                    {#<a class="btn btn-primary btn-block"#}
-                                       {#href="{{ path('saloon_public_booking', {'price': price.id  }) }}">#}
-                                        {#Réserver un soin#}
-                                    {#</a>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#{% endfor %}#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
-{% endblock %}
+            function initMap() {
+                var pos = {lat: latitude, lng: longitude};
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: pos,
+                    zoom: 13,
+                    styles: [
+                        {
+                            "featureType": "administrative",
+                            "elementType": "labels.text.fill",
+                            "stylers": [
+                                {
+                                    "color": "#444444"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "color": "#f2f2f2"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "saturation": -100
+                                },
+                                {
+                                    "lightness": 45
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "visibility": "simplified"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.arterial",
+                            "elementType": "labels.icon",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "all",
+                            "stylers": [
+                                {
+                                    "color": "#46bcec"
+                                },
+                                {
+                                    "visibility": "on"
+                                }
+                            ]
+                        }
+                    ]
+                });
+
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: map
+                });
+            }
+        </script>
+    {% endblock %}
