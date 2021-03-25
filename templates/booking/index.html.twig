@@ -9,7 +9,6 @@
     {% set form = 'saloon_public_booking_form' %}
 
     <div class="prestationSlotsContainer">
-        {# <div class="vertical-spacer"></div> #}
         <div class="prestationText">Prestation choisie</div>
         <div class="table table-light">
             <div class="selectedPrestation">
@@ -22,6 +21,7 @@
                 </div>
             </div>
         </div>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
         <div class='chosenHourContainer chosenHourHidden'>
             <div class='prestationText'>Date et heure choisies</div>
@@ -30,8 +30,6 @@
                 <div class='changeHour'>Modifier</div>
             </div>
         </div>
-
-        {# <div class="table-responsive"> #}
         <div class="prestationText prestationTextSlots">Date et heures disponibles</div>
         <table class="table slotsTable">
             <thead>
@@ -98,29 +96,20 @@
                         <td class="text-dark">
                             <div class="slotsContainer">
                                 {% set slotAvailable = get_available_slots(price, worker, d|date('U')) %}
-
                                 {% for slotAvailable in slotAvailable %}
                                     {% set minute = slotAvailable|date('i') %}
-
                                     {% if minute is divisible by(60) %}
-
                                         {% if slotAvailable|date('d/m/Y') == "now"|date('d/m/Y') %}
-
                                             {% if slotAvailable|date('H:i') > "now"|date('H:i') %}
                                                 {% set slotData =  slotAvailable.timestamp |json_encode() %}
                                                 <div class="text-dark slotButton"
-                                                   {# href="{{ path(form, {'price': price.id, 'slot_ts': slotAvailable.timestamp, 'worker': worker.id}) }}" #}
-                                                   data-date={{slotAvailable.timestamp}}>
-                                                        {{ slotAvailable|date('H:i') }}
+                                                     data-date={{ slotAvailable.timestamp }}>
+                                                    {{ slotAvailable|date('H:i') }}
                                                 </div>
                                             {% endif %}
-
                                         {% else %}
-                                            <div class="text-dark slotButton"
-                                               {# href="{{ path(form, {'price': price.id, 'slot_ts': slotAvailable.timestamp, 'worker': worker.id }) }}" #}
-                                               data-date={{slotAvailable.timestamp}}
-                                               >
-                                                    {{ slotAvailable|date('H:i') }}
+                                            <div class="text-dark slotButton" data-date={{ slotAvailable.timestamp }} worker={{worker.id}}>
+                                                {{ slotAvailable|date('H:i') }}
                                             </div>
                                         {% endif %}
                                     {% endif %}
@@ -133,6 +122,34 @@
             </tr>
             </tbody>
         </table>
+        {% endif %}
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') == false %}
+            <div class='connectionContainer'>
+                <h3 class="card-title prestationText">Veuillez vous connecter pour prendre un rendez-vous</h3>
+                <form action="{{ path('login', {'price': price.id  }) }}" id="formLogin" method="post">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="username" name="_username"
+                                aria-describedby="emailHelp" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" name="_password"
+                                placeholder="Mot de passe">
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <input type="hidden" name="_target_path"
+                            value="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"/>
+                    <div class="card-foter text-connection">
+                        <button type="submit" id="submit" class="btn btn-dark">S'identifier</button>
+                    </div>
+                    <small id="emailHelp" class="form-text text-connection" href="#">Mot de passe oublié ?</small>
+                    <input type="hidden" name="token" value="{token}">
+                </form>
+            </div>
+        {% endif %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') == true %}
+            <div class="text-center" id='confirmation-slot'/>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -141,12 +158,21 @@
 {% block javascripts %}
     <script type="text/javascript">
         const date = document.querySelector
-        const onClick = (time) => (event) => {
+        const onClick = (time, timestamp, worker) => (event) => {
             const slotsTable = document.getElementsByClassName('slotsTable')[0];
             const chosenHour = document.querySelector('.chosenHourHidden').classList.remove('chosenHourHidden');
             slotsTable.classList.add('slotsTableHidden');
             document.querySelector('.prestationTextSlots').classList.add('slotsTableHidden');
-            const chosenSlot = new Date(time).toLocaleString('fr-FR', { timeZone: 'UTC', weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})
+            const chosenSlot = new Date(time).toLocaleString('fr-FR', {
+                timeZone: 'UTC',
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
+            const url = "{{ path('saloon_public_booking_form', {'price': price.id, 'slot_ts': 'test', 'worker': 'test2'}) }}".replace('test', timestamp).replace('test2', worker)
+            document.getElementById('confirmation-slot').innerHTML = `<a class="text-dark" href="${url}">Confirmer</a>`
             document.querySelector('.chosenHour').innerHTML = chosenSlot
         }
         const onModifyClick = () => {
@@ -159,7 +185,9 @@
         const slots = document.querySelectorAll('.slotButton');
         slots.forEach(slot => {
             const time = Number(slot.getAttribute('data-date')) * 1000;
-            slot.addEventListener('click', onClick(time))
+            const timestamp = slot.getAttribute('data-date')
+            const worker = slot.getAttribute('worker')
+            slot.addEventListener('click', onClick(time, timestamp, worker))
         })
         const modifyButton = document.querySelector('.changeHour');
         modifyButton.addEventListener('click', onModifyClick);

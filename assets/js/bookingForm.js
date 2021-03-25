@@ -26,11 +26,11 @@ $(document).ready(function() {
       $(this).addClass('btn-success');
 
       // Si le choix est stripe, on affiche le form
-      if ($(this).attr('id') == 'payment_active') {
+      // if ($(this).attr('id') == 'payment_active') {
           $('.form-group .stripe').show();
-      } else {
-          $('.form-group .stripe').hide();
-      }
+      // } else {
+      //     $('.form-group .stripe').hide();
+      // }
     });
   } else {
     $('.payment_choose').hide();

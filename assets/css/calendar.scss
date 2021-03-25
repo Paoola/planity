@@ -4,14 +4,11 @@
 
   & div {
     padding: 12px;
-    & :hover {
+    &:hover {
       cursor: pointer;
+      text-decoration: underline;
     }
   }
-}
-
-.table-responsive {
-  //   background-color: #fafafa;
 }
 
 .slotsTableHidden {
