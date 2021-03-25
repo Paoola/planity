@@ -13,7 +13,7 @@
 
 .changeHour {
 	text-decoration-line: underline;
-  & :hover {
+  &:hover {
     cursor: pointer
   }
 }
@@ -62,6 +62,17 @@
 .prestationName {
 	width: 50%;
 	text-align: left;
+}
+
+
+.connectionContainer {
+	display: flex;
+	flex-direction: column;
+
+	& .text-connection {
+		width: max-content;
+		margin: auto;
+	}
 }
 
 @media only screen and (max-width: 768px) {
