@@ -79,7 +79,6 @@ class BookingController extends AbstractController
 
             // Paiement
             if (!empty($request->request->get('stripeToken'))) {
-                dd('e');
                 
                 \Stripe\Stripe::setApiKey(getenv('SK_STRIPE'));
                 $charge = \Stripe\Charge::create([

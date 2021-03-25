@@ -21,6 +21,7 @@
                 </div>
             </div>
         </div>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
         <div class='chosenHourContainer chosenHourHidden'>
             <div class='prestationText'>Date et heure choisies</div>
@@ -121,9 +122,11 @@
             </tr>
             </tbody>
         </table>
+        {% endif %}
+
         {% if is_granted('IS_AUTHENTICATED_FULLY') == false %}
             <div class='connectionContainer'>
-                <h3 class="card-title prestationText">Vous avez déjà utilisé Lana Beauty ?</h3>
+                <h3 class="card-title prestationText">Veuillez vous connecter pour prendre un rendez-vous</h3>
                 <form action="{{ path('login', {'price': price.id  }) }}" id="formLogin" method="post">
                     <div class="form-group">
                         <input type="email" class="form-control" id="username" name="_username"
