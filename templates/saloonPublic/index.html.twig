@@ -3,203 +3,88 @@
 {% block title %}{{ saloon.name }} - {{ parent() }}{% endblock %}
 
 {% block body %}
-<div class="vertical-spacer"></div>
-    <div class="row">
-        <div class="col-sm-12">
-            <h4 class="prestationTitle">Beauté des ongles</h4>
-            <br>
-            <div class="table table-light prestationContainer">
-                {% for price in saloon.prices %}
-                    <div class="prestationContainer prestationRow">
-                        <div class="prestationName">{{ price.name }}</div>
-                        <div class="css-1maandq text-right prestationDuration"> {{ price.duration }}min</div>
-                        <div class="align-top prestationAmount">{{ price.amount }}€</div>
-                        <div class="prestationButtonContainer">
-                            <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
-                                class="btn btn-outline-dark float-right prestationButton">Réserver ce soin
-                            </a>
-                        </div>
-                    </div>
-                    {# <div class="prestationContainer prestationRow">
-                        <div class="prestationName">{{ price.name }}</div>
-                        <div class="css-1maandq text-right prestationDuration"> {{ price.duration }}min</div>
-                        <div class="align-top prestationAmount">{{ price.amount }}€</div>
-                        <div class="prestationButtonContainer">
-                            <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
-                                class="btn btn-outline-dark float-right prestationButton">Réserver ce soin
-                            </a>
-                        </div>
-                    </div>
-                    <div class="prestationContainer prestationRow">
-                        <div class="prestationName">{{ price.name }}</div>
-                        <div class="css-1maandq text-right prestationDuration"> {{ price.duration }}min</div>
-                        <div class="align-top prestationAmount">{{ price.amount }}€</div>
-                        <div class="prestationButtonContainer">
-                            <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
-                                class="btn btn-outline-dark float-right prestationButton">Réserver ce soin
-                            </a>
-                        </div>
-                    </div>
-                    <div class="prestationContainer prestationRow">
-                        <div class="prestationName">{{ price.name }}</div>
-                        <div class="css-1maandq text-right prestationDuration"> {{ price.duration }}min</div>
-                        <div class="align-top prestationAmount">{{ price.amount }}€</div>
-                        <div class="prestationButtonContainer">
-                            <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
-                                class="btn btn-outline-dark float-right prestationButton">Réserver ce soin
-                            </a>
-                        </div>
-                    </div> #}
-                {% endfor %}
-            </div>
-        </div>
-        {# {% include 'booking/index.html.twig' %} #}
-
-    <div class="infosContainer">
-        {# <div class="row"> #}
-            {# <div class="col-sm-6"> #}
-            <div class="locationInfo">
-                <h4>En savoir plus sur Lana Beauty</h4>
-
-                <div id="map" style="width: 100%; height: 330px;"></div>
-                <br>
-                <i class=" fas fa-map-marker-alt css-1cjv4kp"> 266 route de Beaudinard, 13400 Aubagne</i>
-            </div>
-            {# </div> #}
-            {# <div class="col-sm-6"> #}
-            <div class="openingInfo">
-                <h4>Horaires d'ouverture</h4>
-                {% include "partials/schedule.html.twig" %}
-            </div>
-            {# </div> #}
-        {# </div> #}
-    </div>
     <div class="vertical-spacer"></div>
+    <div class="row">
+        {% for price in saloon.prices %}
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-12 mb-4">
 
-    {% endblock %}
+                <div class="view overlay rounded z-depth-1">
+                    {% if price.id == 1 %}
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid"
+                             alt="Sample project image">
+                    {% elseif price.id == 2 %}
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid"
+                             alt="Sample project image">
+                    {% elseif price.id == 3 %}
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid"
+                             alt="Sample project image">
+                    {% elseif price.id == 4 %}
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid"
+                             alt="Sample project image">
+                    {% elseif price.id == 5 %}
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid"
+                             alt="Sample project image">
+                    {% elseif price.id == 6 %}
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/88.jpg" class="img-fluid"
+                             alt="Sample project image">
+                    {% endif %}
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
 
-    {% block scripts %}
-        {% if saloon.isPremium %}
-        <script src="{{ asset('build/booking.js') }}"></script>
-        {% endif %}
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCocsTEd2fbjERR2tEl9ilk0M_QnIajRUM&callback=initMap"
-                async defer></script>
+                <div class="px-3 pt-3 mx-1 mt-1 pb-0">
+                    <h4 class="font-weight-bold mt-1 mb-3">{{ price.name }}</h4>
+                    <span class="current">Prix: {{ price.amount }}€</span>
 
-        {% set latitude = 0 %}
-        {% set longitude = 0 %}
-        {% if saloon.latitude %}
-            {% set latitude = saloon.latitude %}
-        {% endif %}
-        {% if saloon.longitude %}
-            {% set longitude = saloon.longitude %}
-        {% endif %}
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCocsTEd2fbjERR2tEl9ilk0M_QnIajRUM&callback=initMap"
-                async defer></script>
+                    {% if price.id == 1 %}
+                        <p class="text-justify">
+                            Notre service le plus populaire, la manucure de conception de gel comprend la préparation,
+                            la mise en forme et une consultation personnelle avec votre artiste. Choisissez parmi notre
+                            lookbook saisonnier et personnalisez votre palette de couleurs.
+                        </p>
+                    {% elseif price.id == 2 %}
+                        <p class="text-justify">Nous proposons un processus d'élimination en douceur à la main et ne
+                            retirons que les gels doux, sans retrait de gel. Pour votre conception de gel, choisissez
+                            parmi notre lookbook saisonnier et personnalisez votre palette de couleurs.
+                        </p>
 
-        {% set latitude = 0 %}
-        {% set longitude = 0 %}
-        {% if saloon.latitude %}
-            {% set latitude = saloon.latitude %}
-        {% endif %}
-        {% if saloon.longitude %}
-            {% set longitude = saloon.longitude %}
-        {% endif %}
-        <script>
-            var map;
-            var latitude = parseFloat('{{ latitude }}');
-            var longitude = parseFloat('{{ longitude }}');
+                    {% elseif price.id == 3 %}
+                        <p class="text-justify">Notre manucure de luxe signature avec une nouvelle couche de couleur de
+                            votre vernis gel préféré, sans retrait de gel. Pour votre conception de gel, choisissez
+                            parmi notre lookbook saisonnier et personnalisez votre palette de couleurs.</p>
+                    {% elseif price.id == 4 %}
+                        <p class="text-justify">
+                            Ce rendez-vous dure 90 minutes pour vous donner, ainsi qu'à nos artistes les plus
+                            expérimentés, du temps supplémentaire pour une consultation, afin que nous puissions
+                            vraiment assortir vos ongles à la palette de couleurs, à l'ambiance, à la robe et aux fleurs
+                            de votre mariage.
+                        </p>
+                    {% elseif price.id == 5 %}
+                        <p class="text-justify">
+                            Ce rendez-vous dure 90 minutes pour vous donner, ainsi qu'à nos artistes les plus
+                            expérimentés, du temps supplémentaire pour une consultation, afin que nous puissions
+                            vraiment assortir vos ongles à la palette de couleurs, à l'ambiance, à la robe et aux fleurs
+                            de votre mariage.
+                        </p>
+                    {% elseif price.id == 6 %}
+                        <p class="text-justify">
+                            Ce rendez-vous dure 90 minutes pour vous donner, ainsi qu'à nos artistes les plus
+                            expérimentés, du temps supplémentaire pour une consultation, afin que nous puissions
+                            vraiment assortir vos ongles à la palette de couleurs, à l'ambiance, à la robe et aux fleurs
+                            de votre mariage.
+                        </p>
+                    {% endif %}
 
-            function initMap() {
-                var pos = {lat: latitude, lng: longitude};
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: pos,
-                    zoom: 13,
-                    styles: [
-                        {
-                            "featureType": "administrative",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                                {
-                                    "color": "#444444"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "landscape",
-                            "elementType": "all",
-                            "stylers": [
-                                {
-                                    "color": "#f2f2f2"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "poi",
-                            "elementType": "all",
-                            "stylers": [
-                                {
-                                    "visibility": "off"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "road",
-                            "elementType": "all",
-                            "stylers": [
-                                {
-                                    "saturation": -100
-                                },
-                                {
-                                    "lightness": 45
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "road.highway",
-                            "elementType": "all",
-                            "stylers": [
-                                {
-                                    "visibility": "simplified"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "road.arterial",
-                            "elementType": "labels.icon",
-                            "stylers": [
-                                {
-                                    "visibility": "off"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "transit",
-                            "elementType": "all",
-                            "stylers": [
-                                {
-                                    "visibility": "off"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "water",
-                            "elementType": "all",
-                            "stylers": [
-                                {
-                                    "color": "#46bcec"
-                                },
-                                {
-                                    "visibility": "on"
-                                }
-                            ]
-                        }
-                    ]
-                });
+                    <span class="badge badge-pill badge-dark">Paiement en ligne sécurisé</span>
+                    <span class="badge badge-pill badge-light">Populaire  <i class="fas fa-fire"></i></span>
 
-                var marker = new google.maps.Marker({
-                    position: pos,
-                    map: map
-                });
-            }
-        </script>
-    {% endblock %}
+                    <a href="{{ path('saloon_public_booking', {'price': price.id  }) }}" type="button"
+                       class="btn btn-orange btn-rounded mx-0 pao">Réserver ce soin
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
